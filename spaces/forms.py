@@ -45,7 +45,7 @@ class CreateSpaceForm(forms.ModelForm):
                                              strip=True, css_sanitizer=css_sanitizer)
 
         if sanitized_description != unescaped_description:
-            raise ValidationError('Your field contains invalid HTML.')
+            raise ValidationError('В полето има невалиден HTML (най-вероятно link)')
 
         return description
 
@@ -56,7 +56,7 @@ class CreateSpaceForm(forms.ModelForm):
         tag_list = [tag.strip() for tag in tags.split(',') if tag.strip()]
 
         if len(tag_list) < 3:
-            raise ValidationError("You should provide at least 3 tags.")
+            raise ValidationError("Трябват ти поне 3 тага.")
 
         cleaned_data['tags'] = ','.join(tag_list)
         return cleaned_data

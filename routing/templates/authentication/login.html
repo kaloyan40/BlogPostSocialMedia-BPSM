@@ -9,16 +9,17 @@
 
         <div class="form-floating mb-3">
             {{ form.username }}
-            <label for="username">Email Address / Username</label>
+            <label for="username">Имейл адрес / Потребителско име</label>
         </div>
 
         <div class="form-floating mb-3">
             {{ form.password }}
-            <label for="password">Password</label>
+            <label for="password">Парола</label>
         </div>
 
-        <button type="submit" class="btn btn-secondary">Login</button>
-
-        <a href="{% url 'password_reset' %}">Reset Password</a>
+        <div class="d-flex align-items-center gap-1">
+            <button type="submit" class="btn btn-dark">Влез</button>
+            <a href="{% url 'password_reset' %}" class="btn btn-secondary">Забравена парола?</a>
+        </div>
     </form>
 {% endblock %}

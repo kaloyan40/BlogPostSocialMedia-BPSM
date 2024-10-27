@@ -9,9 +9,13 @@
 {% endblock %}
 
 {% block main %}
-    <form method="POST" action="{% url 'create_post' %}" enctype="multipart/form-data" class="form-group" id="app">
+    <form method="POST" action="{% url 'create_post' %}" enctype="multipart/form-data" class="form-group" id="app" ref="form" @submit.prevent>
         {% csrf_token %}
         {% include 'includes/errors.html' %}
+        <div v-if="showInvalidMessage" class="alert alert-danger d-flex align-items-center justify-content-center gap-1" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M74.62-140 480-840l405.38 700H74.62ZM178-200h604L480-720 178-200Zm302-47.69q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02T480-312.31q-13.73 0-23.02 9.29T447.69-280q0 13.73 9.29 23.02t23.02 9.29Zm-30-104.62h60v-200h-60v200ZM480-460Z"/></svg>
+            <p><strong>Основният текст</strong> не е въведен. Попълни полето, за да продължиш.</p>
+        </div>
 
         <div v-if="loading" class="spinner-border" role="status"></div>
 
@@ -154,7 +158,7 @@
         {{ form.space }}
         {{ form.tags }}
 
-        <button type="submit" class="btn btn-secondary">Публикувай</button>
+        <button type="button" class="btn btn-secondary" @click="submitForm">Публикувай</button>
     </form>
 {% endblock %}
 
@@ -180,10 +184,21 @@
 
             spaceInput: null,
             searchInput: null,
-            name: '{{ name|default_if_none:"" }}',
-            content: '{{ content|default_if_none:"" }}'
+
+            showInvalidMessage: false,
+
+            name: '',
+            content: ''
         },
         methods: {
+            submitForm() {
+                if (this.content.length === 0) {
+                    this.showInvalidMessage = true;
+                    return;
+                }
+
+                this.$refs.form.submit();
+            },
             generateURL() {
                 return '{% url 'list_spaces' %}'
             },

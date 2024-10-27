@@ -89,6 +89,8 @@ class UserProfile(TemplateView):
         context['followers_count'] = user.followers.count()
         context['following_count'] = user.following.count()
 
+        context['report_choices'] = UserReport.REPORT_TYPES
+
         if denied:
             return context
 
@@ -108,7 +110,6 @@ class UserProfile(TemplateView):
         context['followed_spaces'] = user.followed_spaces.all()
 
         context['display_choices'] = Profile.DISPLAY_CHOICES
-        context['report_choices'] = UserReport.REPORT_TYPES
         return context
 
 

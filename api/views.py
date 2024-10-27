@@ -42,7 +42,7 @@ class FollowSpaceView(views.APIView):
 
         follow = UserSpaceFollow.objects.create(user=user, space=space)
         serializer = UserSpaceFollowSerializer(follow)
-        return Response({"message": "Space followed successfully", "data": f"{serializer}"},
+        return Response({"message": "Темата бе последвана", "data": f"{serializer}"},
                         status=status.HTTP_201_CREATED)
 
 
@@ -59,7 +59,7 @@ class UnfollowSpaceView(views.APIView):
             return Response({"detail": "Not following this space."}, status=status.HTTP_400_BAD_REQUEST)
 
         follow.delete()
-        return Response({"message": "Space unfollowed successfully"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Темата бе отпоследвана"}, status=status.HTTP_201_CREATED)
 
 
 class SpaceListView(generics.ListAPIView):
@@ -159,7 +159,7 @@ class LikeCommentView(views.APIView):
         like_serializer = CommentLikeSerializer(data={'comment': pk, 'user': user_id})
         if like_serializer.is_valid():
             like_serializer.save()
-            return Response({'message': 'Comment liked'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Коментарът беше харесан'}, status=status.HTTP_201_CREATED)
         return Response(like_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -172,7 +172,7 @@ class DislikeCommentView(views.APIView):
         user_likes = CommentLikes.objects.filter(comment=comment, user=request.user)
         if user_likes.exists():
             user_likes.delete()
-            return Response({'message': 'Comment disliked'}, status=status.HTTP_201_CREATED)
+            return Response({'message': 'Махнат от харесани'}, status=status.HTTP_201_CREATED)
         return Response({'error': 'You have not liked this comment'}, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -13,7 +13,7 @@ class PostCreateView(SuccessMessageMixin, CreateView, LoginRequiredMixin):
     model = Post
     template_name = 'posts/create-post.html'
     form_class = CreatePostForm
-    success_message = 'Your post was created successfully'
+    success_message = 'Публикацията беше създадена успешно'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -57,7 +57,8 @@ class PostDetailView(DetailView):
         context = super(PostDetailView, self).get_context_data()
         post = self.get_object()
         context['tags'] = Tag.objects.filter(post=post)
-        context['post_saved'] = self.request.user.saved_posts.filter(post=post).exists()
+        if self.request.user.is_authenticated:
+            context['post_saved'] = self.request.user.saved_posts.filter(post=post).exists()
         context['in_post_details'] = True
         context['reaction_types'] = ReactionType.objects.all()
         context['post_reaction_types'] = [r.reaction_type for r in post.reactions.filter(user=self.request.user)]

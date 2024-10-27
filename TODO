@@ -1,5 +1,3 @@
-forgot password option
-
 add github secrets
 add ci/cd github actions
 -unit, ui tests
@@ -10,13 +8,7 @@ implement logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 add groups, permissions, roles
 
 TODO FAST:
-client validation for create post
+account validation fix (doesnt work when you activate from different device)
+header dropdown doesnt work on mobile
 fix email authentication page (add reload button - 'Reload if you authenticate from different device')
 text-decoration-none on all a tags
-
-share:
-facebook share
-
-copy current link to clipboard
-private post:
-copy to clipboard

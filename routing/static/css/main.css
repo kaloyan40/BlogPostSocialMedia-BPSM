@@ -76,6 +76,10 @@
     display: block;
 }
 
+.logout-dropdown-button:active svg {
+    fill: white;
+}
+
 /* QUILL */
 .ql-zone h1, h2, h3, p {
     margin: 0;

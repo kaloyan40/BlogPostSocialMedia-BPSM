@@ -60,7 +60,7 @@ class CreatePostForm(forms.ModelForm):
                                          strip=True, css_sanitizer=css_sanitizer)
 
         if sanitized_content != unescaped_content:
-            raise ValidationError('Your field contains invalid HTML.')
+            raise ValidationError('В полето има невалиден HTML (най-вероятно link)')
 
         return content
 
@@ -78,7 +78,7 @@ class CreatePostForm(forms.ModelForm):
                     tag = Tag.objects.get(id=tag_id)
                     tag.post.add(instance)
             except Exception as e:
-                raise ValidationError(f'Invalid tags: {e}')
+                raise ValidationError(f'Невалидни тагове: {e}')
 
         if commit:
             instance.save()

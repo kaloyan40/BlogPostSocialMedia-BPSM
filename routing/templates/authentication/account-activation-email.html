@@ -72,19 +72,19 @@
             {# <img src="http://{{ domain }}{% static 'images/logo.png' %}" alt="Istoria.bg Logo"> #}
         </div>
         <div class="content">
-            <h1>Hello, {{ user.username }}!</h1>
+            <h1>Здравей, {{ user.username }}!</h1>
             <p>
-                Thank you for registering with Istoria.bg. Please click the button below to confirm your email address and activate your account.
+                Благодарим ти, че се регистрира в Istoria.bg. Моля натисни бутона долу, за да потвърдиш твоя имейл адрес и да активираш акаунта.
             </p>
             <p>
-                <a href="{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Validate my account</a>
+                <a href="{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Потвърди акаунта</a>
             </p>
             <p>
-                If you did not create an account, no further action is required.
+                Ако не си създал акаунт, не се изискват допълнителни действия.
             </p>
         </div>
         <div class="footer">
-            &copy; {% now "Y" %} Istoria.bg. All rights reserved.
+            &copy; {% now "Y" %} Istoria.bg. Всички права запазени.
         </div>
     </div>
 </body>

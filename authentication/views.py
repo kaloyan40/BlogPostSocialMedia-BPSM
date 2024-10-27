@@ -26,7 +26,7 @@ User = get_user_model()
 class SignUpView(SuccessMessageMixin, CreateView):
     template_name = 'authentication/register.html'
     form_class = UserRegisterForm
-    success_message = "Your profile was created successfully"
+    success_message = "Профилът ти беше създаден успешно"
 
     def form_valid(self, form):
         user = form.save(commit=False)
@@ -34,7 +34,7 @@ class SignUpView(SuccessMessageMixin, CreateView):
         user.save()
 
         current_site = get_current_site(self.request)
-        subject = 'Activate Your Account'
+        subject = 'Активирай акаунта си'
         html_message = render_to_string('authentication/account-activation-email.html', {
             'user': user,
             'domain': current_site.domain,
@@ -63,14 +63,14 @@ class SignUpView(SuccessMessageMixin, CreateView):
 class SignInView(SuccessMessageMixin, LoginView):
     template_name = 'authentication/login.html'
     form_class = UserLoginForm
-    success_message = "You have been logged in successfully"
+    success_message = "Влезна в системата успешно"
 
     def get_success_url(self):
         return reverse_lazy('home')
 
 
 class SignOutView(SuccessMessageMixin, LogoutView):
-    success_message = "You have been logged out successfully"
+    success_message = "Излезна от системата успешно"
 
     def get_success_url(self):
         return reverse_lazy('home')
@@ -91,7 +91,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-        messages.success(request, 'Your account has been activated successfully.')
+        messages.success(request, 'Акаунтът ти бе активиран успешно.')
         return redirect('home')
     else:
         return render(request, 'authentication/account-activation-invalid.html')
@@ -101,10 +101,10 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     template_name = 'authentication/password-reset.html'
     email_template_name = 'authentication/password-reset-email.html'
     subject_template_name = 'authentication/password-reset-subject.txt'
-    success_message = "We've emailed you instructions for setting your password, " \
-                      "if an account exists with the email you entered. You should receive them shortly." \
-                      " If you don't receive an email, " \
-                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_message = "Изпратихме ти инструкции за задаване на нова парола по имейл, " \
+                      "ако съществува акаунт с въведения от теб имейл адрес. Скоро трябва да ги получиш." \
+                      " Ако не получиш имейл, " \
+                      "моля, увери се, че си въвел адреса, с който си се регистрирал, и провери папката за нежелана поща."
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
