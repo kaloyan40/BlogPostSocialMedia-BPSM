@@ -11,7 +11,7 @@ from .models import Space, UserSpaceFollow, Tag
 class SpaceCreateView(SuccessMessageMixin, CreateView, LoginRequiredMixin):
     template_name = 'spaces/create-space.html'
     form_class = CreateSpaceForm
-    success_message = 'Space successfully created'
+    success_message = 'Темата беше създадена успешно'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
