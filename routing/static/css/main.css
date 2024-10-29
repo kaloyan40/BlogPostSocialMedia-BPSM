@@ -99,6 +99,10 @@
 }
 
 /* MAIN */
+body {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
 .main-nav {
     padding-left: 1em;
     padding-right: 1em;

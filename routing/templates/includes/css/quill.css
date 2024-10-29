@@ -1,5 +1,6 @@
 .form-control.ql-container.ql-snow {
-    padding-top: 7px;
+    margin-top: 7px;
+    padding: 0;
 }
 
 .ql-container.ql-snow {
@@ -17,4 +18,8 @@
 .ql-editor.ql-blank::before {
     font-style: normal;
     color: #212529;
+}
+
+.ql-toolbar {
+    background-color: white;
 }
