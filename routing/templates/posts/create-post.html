@@ -76,7 +76,7 @@
                 </div>
             </div>
 
-            <div class="space-tags-select row">
+            <div class="space-tags-select py-3 row">
                 <div class="col">
                     <div v-for="tag in space.tags" :key="tag.id" @click="toggleTag(tag)" :class="['badge', 'me-2', 'bg-secondary', { 'half-opacity': selectedTags.includes(tag) }]">
                         <span class="d-flex gap-1 align-items-center">
@@ -108,7 +108,7 @@
                         </ul>
                     </div>
                     <hr class="hr" />
-                    <h6>[[ tags.length ]] <span v-if="tags.length === 1">избран таг</span><span v-else>избрани тага</span></h6>
+                    <h6 class="m-0">[[ tags.length ]] <span v-if="tags.length === 1">избран таг</span><span v-else>избрани тага</span></h6>
                 </div>
                 <div class="col">
                     <div v-for="tag in selectedTags" :key="tag.id" @click="toggleTag(tag)" class="badge me-2 bg-primary">
@@ -325,8 +325,8 @@
     {% include 'includes/css/image-cards.css' %}
 
     .space-tags-select {
+        background-color: white;
         margin: 0;
-        padding-top: 12px;
         border: 1px solid rgba(0, 0, 0, .125);
         border-radius: 0.25rem;
     }

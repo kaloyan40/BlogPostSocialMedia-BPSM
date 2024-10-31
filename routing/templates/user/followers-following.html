@@ -5,7 +5,7 @@
 {% block main %}
     <div class="row">
         <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2">
+            <div class="d-flex justify-content-center mb-2 text-white">
                 <p><b>{{ user.username }}</b> го следват <b>{{ followers_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followers_list %}
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2">
+            <div class="d-flex justify-content-center mb-2 text-white">
                 <p><b>{{ user.username }}</b> следва <b>{{ followings_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followings_list %}

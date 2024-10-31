@@ -32,7 +32,8 @@
 
 @media only screen and (max-width: 1000px) {
     .main-nav .authenticated-container,
-    .main-nav .btn-group
+    .main-nav .btn-group,
+    .text-info-post
     {
         display: none;
     }

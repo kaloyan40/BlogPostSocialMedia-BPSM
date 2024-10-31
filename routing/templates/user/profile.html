@@ -5,7 +5,7 @@
 {% block main %}
     <div id="app">
         {% if not is_owner %}
-            <div class="d-flex justify-content-between mb-2">
+            <div class="d-flex justify-content-between mb-2 p-3 bg-white rounded">
                 <button type="button" class="btn btn-outline-primary" @click="followUnfollowUser"><span v-if="followed">Отследвай</span><span v-else>Следвай</span></button>
                 <button class="btn btn-secondary dropdown-toggle d-flex gap-1 align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" {% if is_reported %}disabled{% endif %}>
                     {% if is_reported %}
@@ -44,9 +44,9 @@
             </div>
         {% else %}
             {% if is_owner %}
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-1 bg-white p-2 rounded">
                 <a href="{% url 'user_edit' %}" class="d-flex gap-1 align-items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#5f6368"><path d="M200-200h43.92l427.93-427.92-43.93-43.93L200-243.92V-200Zm-40 40v-100.77l527.23-527.77q6.15-5.48 13.57-8.47 7.43-2.99 15.49-2.99t15.62 2.54q7.55 2.54 13.94 9.15l42.69 42.93q6.61 6.38 9.04 14 2.42 7.63 2.42 15.25 0 8.13-2.74 15.56-2.74 7.42-8.72 13.57L260.77-160H160Zm600.77-556.31-44.46-44.46 44.46 44.46ZM649.5-649.5l-21.58-22.35 43.93 43.93-22.35-21.58Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#0d6efd"><path d="M200-200h43.92l427.93-427.92-43.93-43.93L200-243.92V-200Zm-40 40v-100.77l527.23-527.77q6.15-5.48 13.57-8.47 7.43-2.99 15.49-2.99t15.62 2.54q7.55 2.54 13.94 9.15l42.69 42.93q6.61 6.38 9.04 14 2.42 7.63 2.42 15.25 0 8.13-2.74 15.56-2.74 7.42-8.72 13.57L260.77-160H160Zm600.77-556.31-44.46-44.46 44.46 44.46ZM649.5-649.5l-21.58-22.35 43.93 43.93-22.35-21.58Z"/></svg>
                     <span>Редактирай</span>
                 </a>
                 <div class="dropdown mx-2">

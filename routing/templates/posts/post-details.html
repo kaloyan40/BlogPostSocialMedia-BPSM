@@ -45,17 +45,17 @@
         <div class="d-flex gap-2" style="position: absolute; top: 10px; right: 20px;">
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="m152-287-20-20 239-241 160 160 251-247H640v-28h188v188h-28v-140L531-346 371-506 152-287Z"/></svg>
-                <span>{{ post.rating|floatformat:2 }} рейтинг</span>
+                <span>{{ post.rating|floatformat:2 }}<span class="text-info-post"> рейтинг</span></span>
             </div>
             <span>&middot;</span>
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M266-426h268v-28H266v28Zm0-120h428v-28H266v28Zm0-120h428v-28H266v28ZM132-180v-588q0-26 17-43t43-17h576q26 0 43 17t17 43v416q0 26-17 43t-43 17H244L132-180Zm100-140h536q12 0 22-10t10-22v-416q0-12-10-22t-22-10H192q-12 0-22 10t-10 22v520l72-72Zm-72 0v-480 480Z"/></svg>
-                <span>{{ post.comments_count }} коментара</span>
+                <span>{{ post.comments_count }}<span class="text-info-post"> коментара</span></span>
             </div>
             <span>&middot;</span>
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M374-322h208q8 0 13.5-3t8.5-11l64-148q3-8 4.5-15t1.5-13v-14q0-6-3-9t-9-3H448l22.15-109.92Q472-656 469-663t-8-12l-1-1-108 116q-3 3.43-4.5 7.71Q346-548 346-542v192q0 11.55 8.23 19.77Q362.45-322 374-322Zm106.17 190q-72.17 0-135.73-27.39-63.56-27.39-110.57-74.35-47.02-46.96-74.44-110.43Q132-407.65 132-479.83q0-72.17 27.39-135.73 27.39-63.56 74.35-110.57 46.96-47.02 110.43-74.44Q407.65-828 479.83-828q72.17 0 135.73 27.39 63.56 27.39 110.57 74.35 47.02 46.96 74.44 110.43Q828-552.35 828-480.17q0 72.17-27.39 135.73-27.39 63.56-74.35 110.57-46.96 47.02-110.43 74.44Q552.35-132 480.17-132Zm-.17-28q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-                <span>{{ post.reactions_count }} реакции</span>
+                <span>{{ post.reactions_count }}<span class="text-info-post"> реакции</span></span>
             </div>
         </div>
         {% if post.name %}<h1 class="mt-5 mb-5">{{ post.name }}</h1>{% else %}<div class="mt-3"></div>{% endif %}
@@ -106,7 +106,7 @@
 
     <div class="ql-zone card mt-4 p-4 box-shadow">{{ post.content|safe }}</div>
 
-    <div class="mt-5 box-shadow details-comments-container">
+    <div class="mt-5 box-shadow details-comments-container bg-light">
         <div :class="['d-flex', 'gap-2', 'align-items-center', 'py-3', 'px-2', { 'half-opacity': loadingCreateComment }]">
             <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#5f6368"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
             <textarea v-model="commentInput" class="form-control comment-textarea" placeholder="Добави коментар като {{ user.username }}" @input="adjustTextAreaHeight"></textarea>

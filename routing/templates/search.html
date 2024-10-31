@@ -4,9 +4,9 @@
 
 {% block main %}
     <div id="app">
-        <p class="mb-2">Резултати за <strong>{{ q }}</strong> (общо [[ resultsSum ]])</p>
+        <p class="mb-2 bg-white p-3 rounded">Резултати за <strong>{{ q }}</strong> (общо [[ resultsSum ]])</p>
 
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between mb-3 bg-white p-3 rounded">
             <p
                 @click="window = 'posts'"
                 :class="getClass('posts')"
