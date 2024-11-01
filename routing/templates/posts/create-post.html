@@ -133,7 +133,7 @@
                     <span>Изчисти всички ([[ images.length ]] прикачени)</span>
                 </button>
             </div>
-            <div class="card p-3 mt-2">
+            <div :class="['card', 'p-3', 'mt-2', {'half-opacity': images.length === 0}]">
                 <div v-if="images.length" class="card-images-container justify-content-center mt-3">
                     <div v-for="(image, index) in images" :key="index" class="card-image cursor-pointer">
                         <img :src="image">
