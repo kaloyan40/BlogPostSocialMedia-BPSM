@@ -38,12 +38,12 @@ Vue.component('comment', {
                 comment.show_replies = true;
                 this.hideCommentForm(comment.id);
                 commentInput.value = "";
-                publishButton.innerHTML = "Publish";
-                messageApp.triggerNotification('Replied successfully');
+                publishButton.innerHTML = "Публикувай";
+                messageApp.triggerNotification('Отговори успешно');
             })
             .catch((error) => {
                 console.error(error);
-                publishButton.innerHTML = "Publish";
+                publishButton.innerHTML = "Публикувай";
             });
         },
         editComment(comment) {
@@ -59,7 +59,7 @@ Vue.component('comment', {
             .then(() => {
                 comment.content = contentValue;
                 comment.edit_mode = false;
-                messageApp.triggerNotification('Comment edited');
+                messageApp.triggerNotification('Редактира коментара');
             })
             .catch((error) => {
                 console.error(error);
@@ -85,7 +85,7 @@ Vue.component('comment', {
                 let post = postsApp.posts.find(p => p.id === comment.post);
                 this.deleteCommentRecursive(post.comments, comment.id);
                 {% endif %}
-                messageApp.triggerNotification('Comment deleted');
+                messageApp.triggerNotification('Изтри коментара');
             })
             .catch((error) => {
                 console.error(error);

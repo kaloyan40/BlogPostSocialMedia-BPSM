@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <h1>Потвърди изтриване</h1>
-    <p>Сигурни ли сте че искате да изтриете този акаунт? Това действие не може да бъде отменено.</p>
+    <h1 class="text-white">Потвърди изтриване</h1>
+    <p class="text-white">Сигурни ли сте че искате да изтриете този акаунт? Това действие не може да бъде отменено.</p>
     <form method="POST">
         {% csrf_token %}
         {% include 'includes/errors.html' %}
 
         <div class="form-group mb-2">
-            <label for="password">Въведете паролата си, за да потвърдите:</label>
+            <label for="password" class="text-white fw-bold">Въведете паролата си, за да потвърдите:</label>
             <input type="password" class="form-control" id="password" name="password" required>
         </div>
         <button type="submit" class="btn btn-danger mb-2">Изтрий акаунта ми</button>
