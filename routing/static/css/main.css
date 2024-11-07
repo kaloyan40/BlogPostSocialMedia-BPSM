@@ -3,6 +3,10 @@
 }
 
 /* USEFUL */
+.icon-primary {
+    fill: var(--bs-primary);
+}
+
 .space-gradient {
     position: absolute;
     bottom: 0;
@@ -63,12 +67,11 @@
 .dropdown-menu .dropdown-submenu {
     display: none;
     position: absolute;
-    left: 100%;
+    right: 100%;
     top: -7px;
 }
 
 .dropdown-menu .dropdown-submenu-left {
-    right: 100%;
     left: auto;
 }
 
@@ -119,7 +122,7 @@ body {
 
 .site-search-input:focus {
     outline: none;
-    border-color: black;
+    border-color: var(--bs-primary);
 }
 
 .notification-count {

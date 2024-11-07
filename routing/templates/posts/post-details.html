@@ -41,7 +41,7 @@
             <div data-reaction-name="Виж реакции" class="reaction-icon"><svg @click="navigateToReactions" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#5f6368"><path d="M365.39-271.54h215.38q13.54 0 24.58-6.39 11.03-6.38 15.88-18.69l76.31-177.53q2.38-6.16 3.57-11.93 1.2-5.77 1.2-11.15v-25.08q0-12.77-8.23-21t-21-8.23H477.54l23.29-125.97q1.94-9.26-1.06-17.49-3-8.23-9.23-14.46l-18.23-18.23L317.54-560q-6.08 6.24-9.12 14.04-3.03 7.81-3.03 17.5v196.92q0 24.75 17.62 42.37 17.63 17.63 42.38 17.63ZM480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg></div>
         </div>
     </div>
-    <div class="card d-flex flex-column px-4 pb-3 box-shadow position-relative">
+    <div class="card d-flex flex-column px-4 pb-3 box-shadow position-relative bg-secondary">
         <div class="d-flex gap-2" style="position: absolute; top: 10px; right: 20px;">
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="m152-287-20-20 239-241 160 160 251-247H640v-28h188v188h-28v-140L531-346 371-506 152-287Z"/></svg>
@@ -60,8 +60,8 @@
         </div>
         {% if post.name %}<h1 class="mt-5 mb-5">{{ post.name }}</h1>{% else %}<div class="mt-3"></div>{% endif %}
         <div class="d-flex gap-4">
-            <a class="d-flex gap-1 align-items-end" href="{% url 'user_profile' post.user.profile.slug %}">
-                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#0d6efd"><path d="M480-492.72q-57.75 0-96.44-38.69t-38.69-96.56q0-57.88 38.69-96.44 38.69-38.56 96.44-38.56t96.44 38.56q38.69 38.56 38.69 96.44 0 57.87-38.69 96.56-38.69 38.69-96.44 38.69ZM180-187.69v-80.26q0-31.28 16.71-55.58 16.7-24.29 43.8-37.34 61.88-28.41 121.06-42.74 59.18-14.34 118.42-14.34t118.23 14.54q58.98 14.54 120.69 42.72 27.81 13.03 44.45 37.24Q780-299.23 780-267.95v80.26H180Zm50.26-50.26h499.48v-30q0-14.46-8.93-27.45-8.94-12.99-23.58-20.6-56.56-27.62-109.34-39.65-52.78-12.04-107.89-12.04t-108.43 12.04Q318.26-343.62 262.36-316q-14.64 7.61-23.37 20.6-8.73 12.99-8.73 27.45v30ZM480-542.97q35.97 0 60.42-24.45 24.45-24.45 24.45-60.43 0-35.97-24.45-60.42-24.45-24.45-60.42-24.45t-60.42 24.45q-24.45 24.45-24.45 60.42 0 35.98 24.45 60.43 24.45 24.45 60.42 24.45Zm0-84.88Zm0 389.9Z"/></svg>
+            <a class="d-flex gap-1 align-items-end text-decoration-none" href="{% url 'user_profile' post.user.profile.slug %}">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" class="icon-primary" fill="currentColor"><path d="M480-492.72q-57.75 0-96.44-38.69t-38.69-96.56q0-57.88 38.69-96.44 38.69-38.56 96.44-38.56t96.44 38.56q38.69 38.56 38.69 96.44 0 57.87-38.69 96.56-38.69 38.69-96.44 38.69ZM180-187.69v-80.26q0-31.28 16.71-55.58 16.7-24.29 43.8-37.34 61.88-28.41 121.06-42.74 59.18-14.34 118.42-14.34t118.23 14.54q58.98 14.54 120.69 42.72 27.81 13.03 44.45 37.24Q780-299.23 780-267.95v80.26H180Zm50.26-50.26h499.48v-30q0-14.46-8.93-27.45-8.94-12.99-23.58-20.6-56.56-27.62-109.34-39.65-52.78-12.04-107.89-12.04t-108.43 12.04Q318.26-343.62 262.36-316q-14.64 7.61-23.37 20.6-8.73 12.99-8.73 27.45v30ZM480-542.97q35.97 0 60.42-24.45 24.45-24.45 24.45-60.43 0-35.97-24.45-60.42-24.45-24.45-60.42-24.45t-60.42 24.45q-24.45 24.45-24.45 60.42 0 35.98 24.45 60.43 24.45 24.45 60.42 24.45Zm0-84.88Zm0 389.9Z"/></svg>
                 <span class="fs-5">{{ post.user.username }}</span>
             </a>
             <div class="d-flex gap-1 align-items-center">
@@ -69,7 +69,7 @@
                 <span>{{ post.created_at }}</span>
             </div>
         </div>
-        {% if post.space %}<p class="text-muted">Публикувано в <a href="{% url 'space_details' post.space.slug %}" class="link-secondary">{{ post.space.name }}</a></p>{% endif %}
+        {% if post.space %}<p>Публикувано в <a href="{% url 'space_details' post.space.slug %}" class="link-primary text-decoration-none">{{ post.space.name }}</a></p>{% endif %}
         {% if tags %}
         <div class="text-muted mt-4 d-flex flex-wrap gap-1">
             {% for tag in tags %}
@@ -106,7 +106,7 @@
 
     <div class="ql-zone card mt-4 p-4 box-shadow">{{ post.content|safe }}</div>
 
-    <div class="mt-5 box-shadow details-comments-container bg-light">
+    <div class="mt-5 box-shadow details-comments-container bg-secondary">
         <div :class="['d-flex', 'gap-2', 'align-items-center', 'py-3', 'px-2', { 'half-opacity': loadingCreateComment }]">
             <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#5f6368"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
             <textarea v-model="commentInput" class="form-control comment-textarea" placeholder="Добави коментар като {{ user.username }}" @input="adjustTextAreaHeight"></textarea>
@@ -131,7 +131,7 @@
         {% endif %}
         <comment v-if="comments" :comments="comments" id="comments"></comment>
         <div class="d-flex justify-content-center">
-            <div v-if="loading" class="spinner-border" role="status"></div>
+            <div v-if="loading" class="spinner-border text-primary" role="status"></div>
         </div>
         {% if post.comments_count > 0 %}<div v-if="comments.length === 0" style="height: 1000px;"></div>{% endif %}
     </div>

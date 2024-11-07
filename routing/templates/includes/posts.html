@@ -2,11 +2,11 @@
     <div class="mb-5 posts-filter-container align-items-start d-flex justify-content-between">
         <div class="posts-filter-buttons-container d-flex gap-2 flex-wrap">
             {% if not in_space_details %}
-            <span @click="switchPostsFilter('trending')" :class="['badge', 'badge-pill', filter === 'trending' ? 'bg-primary' : 'bg-light', filter !== 'trending' && 'text-dark']">Набиращи популярност</span>
+            <span @click="switchPostsFilter('trending')" :class="['badge', 'badge-pill', filter === 'trending' ? 'bg-primary' : 'bg-secondary', filter !== 'trending' && 'text-dark']">Набиращи популярност</span>
             {% endif %}
-            <span @click="switchPostsFilter('newest')" :class="['badge', 'badge-pill', filter === 'newest' ? 'bg-primary' : 'bg-light', filter !== 'newest' && 'text-dark']">Нови</span>
-            <span @click="switchPostsFilter('oldest')" :class="['badge', 'badge-pill', filter === 'oldest' ? 'bg-primary' : 'bg-light', filter !== 'oldest' && 'text-dark']">Стари</span>
-            <span @click="switchPostsFilter('comments')" :class="['badge', 'badge-pill', filter === 'comments' ? 'bg-primary' : 'bg-light', filter !== 'comments' && 'text-dark']">Най-коментирани</span>
+            <span @click="switchPostsFilter('newest')" :class="['badge', 'badge-pill', filter === 'newest' ? 'bg-primary' : 'bg-secondary', filter !== 'newest' && 'text-dark']">Нови</span>
+            <span @click="switchPostsFilter('oldest')" :class="['badge', 'badge-pill', filter === 'oldest' ? 'bg-primary' : 'bg-secondary', filter !== 'oldest' && 'text-dark']">Стари</span>
+            <span @click="switchPostsFilter('comments')" :class="['badge', 'badge-pill', filter === 'comments' ? 'bg-primary' : 'bg-secondary', filter !== 'comments' && 'text-dark']">Най-коментирани</span>
         </div>
         {% if not in_space_details %}
         <div class="posts-filter-date-container d-flex gap-2">
@@ -21,7 +21,7 @@
             <h5 class="card-title" v-if="post.name">[[ post.name ]]</h5>
             <p class="card-text d-flex justify-content-between user-date-container">
                 <a class="d-flex align-items-end" :href="'/user/profile/' + post.user.slug">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" fill="#0d6efd"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" class="icon-primary" fill="currentColor"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
                     <span style="padding-left: 2px;">[[ post.user.username ]]</span>
                 </a>
                 <span class="d-flex align-items-center">
@@ -123,7 +123,7 @@
         </div>
     </div>
     <div class="loading-container d-flex justify-content-center align-items-center">
-        <div v-if="loading" class="spinner-border" role="status"></div>
+        <div v-if="loading" class="spinner-border text-secondary" role="status"></div>
     </div>
-    <p v-if="!posts.length && !loading" class="text-muted">Няма намерени публикации!</p>
+    <p v-if="!posts.length && !loading" class="card p-3">Няма намерени публикации!</p>
 </div>
