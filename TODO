@@ -8,8 +8,7 @@ implement logging (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 add groups, permissions, roles
 
 TODO FAST:
+no error when anonymous (not logged in), redirect to login
 account validation fix (doesnt work when you activate from different device)
 header dropdown doesnt work on mobile
 fix email authentication page (add reload button - 'Reload if you authenticate from different device')
-text-decoration-none on all a tags
-button 'Публикувай' becomes 'Publish'
