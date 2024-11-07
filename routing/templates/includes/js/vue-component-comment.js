@@ -17,6 +17,10 @@ Vue.component('comment', {
             comment.show_replies = !comment.show_replies;
         },
         createNestedComment(comment, event) {
+            {% if not request.user.is_authenticated %}
+            window.location.href = "{% url 'login' %}"
+            {% endif %}
+
             const publishButton = event.target;
             const parentElement = publishButton.parentNode.parentNode;
             const commentInput = parentElement.querySelector('textarea');
@@ -103,6 +107,10 @@ Vue.component('comment', {
             }
         },
         likeDislikeComment(comment) {
+            {% if not request.user.is_authenticated %}
+            window.location.href = "{% url 'login' %}"
+            {% endif %}
+
             if (comment.is_liked) {
                 axios
                 .delete(`/api/comment/${comment.id}/dislike/`)

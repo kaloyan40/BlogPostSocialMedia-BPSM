@@ -63,7 +63,6 @@ class UnfollowSpaceView(views.APIView):
 
 
 class SpaceListView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     queryset = Space.objects.all()
     serializer_class = SpaceSerializer
     filter_backends = (SearchFilter, OrderingFilter)
@@ -77,7 +76,6 @@ class SpaceDetailView(generics.RetrieveAPIView):
 
 
 class SpacePostsView(generics.ListAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
 
     def get_queryset(self):

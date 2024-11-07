@@ -109,8 +109,8 @@
     <div class="mt-5 box-shadow details-comments-container bg-secondary">
         <div :class="['d-flex', 'gap-2', 'align-items-center', 'py-3', 'px-2', { 'half-opacity': loadingCreateComment }]">
             <svg xmlns="http://www.w3.org/2000/svg" height="35px" viewBox="0 -960 960 960" width="35px" fill="#5f6368"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
-            <textarea v-model="commentInput" class="form-control comment-textarea" placeholder="Добави коментар като {{ user.username }}" @input="adjustTextAreaHeight"></textarea>
-            <button class="btn btn-primary" @click="createComment">Изпрати</button>
+            <textarea v-model="commentInput" class="form-control comment-textarea" placeholder="{% if not request.user.is_authenticated %}Влез или се регистрирай, за да добавиш коментар{% else %}Добави коментар като {{ user.username }}{% endif %}" @input="adjustTextAreaHeight"></textarea>
+            <button class="btn btn-primary" @click="createComment" {% if not request.user.is_authenticated %}disabled{% endif %}>Изпрати</button>
         </div>
         {% if post.comments_count > 0 %}
         <div class="dropdown mx-2 mb-2">
@@ -188,6 +188,10 @@
                 });
             },
             saveRemoveSavedPost() {
+                {% if not request.user.is_authenticated %}
+                window.location.href = "{% url 'login' %}"
+                {% endif %}
+
                 if (this.postSaved) {
                     axios
                     .delete(`{% url 'remove_saved_post' post.pk %}`)
@@ -263,6 +267,10 @@
                 });
             },
             changeReaction(reactionId) {
+                {% if not request.user.is_authenticated %}
+                window.location.href = "{% url 'login' %}"
+                {% endif %}
+
                 const reactionType = document.getElementById(`reaction_type_${reactionId}`);
                 const dataIsReacted = reactionType.getAttribute('data-is-reacted') === 'true';
 

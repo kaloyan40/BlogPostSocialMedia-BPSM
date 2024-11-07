@@ -107,7 +107,7 @@
                                 <button :class="['btn', 'btn-sm', 'btn-outline-primary', { active: post.comment_order == 'oldest' }]" @click="switchCommentsOrder('oldest', post)">Стари</button>
                                 <button :class="['btn', 'btn-sm', 'btn-outline-primary', { active: post.comment_order == 'top' }]" @click="switchCommentsOrder('top', post)">Топ</button>
                             </div>
-                            <textarea placeholder="Добави коментар като {{ request.user.username }}" class="form-control comment-textarea" :id="'commentInput' + post.id" @input="adjustTextAreaHeight"></textarea>
+                            <textarea placeholder="{% if not request.user.is_authenticated %}Влез или се регистрирай, за да добавиш коментар{% else %}Добави коментар като {{ request.user.username }}{% endif %}" class="form-control comment-textarea" :id="'commentInput' + post.id" @input="adjustTextAreaHeight"></textarea>
                             <button class="btn btn-primary btn-sm mb-3 mt-3" @click="createComment(post)" :id="'commentButton' + post.id">Публикувай</button>
                             <comment v-if="post.comments" :comments="post.comments"></comment>
                             <div v-if="post.next_comment_page" class="loading-container d-flex justify-content-center align-items-center">

@@ -46,11 +46,17 @@ const postsApp = new Vue({
                 this.next = response.data.next;
                 this.loading = false;
             })
-            .catch(() => {
+            .catch((error) => {
+                console.log(error)
                 this.loading = false;
+                this.next = false;
             });
         },
         createComment(post) {
+            {% if not request.user.is_authenticated %}
+            window.location.href = "{% url 'login' %}"
+            {% endif %}
+
             const commentInput = document.getElementById(`commentInput${post.id}`);
             const commentButton = document.getElementById(`commentButton${post.id}`);
 
@@ -106,6 +112,10 @@ const postsApp = new Vue({
             }
         },
         toggleReaction(reaction, post) {
+            {% if not request.user.is_authenticated %}
+            window.location.href = "{% url 'login' %}"
+            {% endif %}
+
             if (reaction.is_reacted) {
                 axios.delete(`{% url 'delete_reaction' %}`, {
                     data: {
