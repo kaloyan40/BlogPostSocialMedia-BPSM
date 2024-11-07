@@ -56,7 +56,7 @@
 }
 
 .on-hover-border:hover {
-    border-color: black;
+    border-color: var(--bs-primary);
 }
 
 /* DROPDOWN MENU */

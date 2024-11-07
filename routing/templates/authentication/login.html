@@ -3,8 +3,11 @@
 {% block title %}Login{% endblock %}
 
 {% block main %}
-    <form method="POST" class="form-group">
+    <form method="POST" class="form-group card p-4">
         {% csrf_token %}
+
+        <h1 class="text-center fw-light mb-3">Вход</h1>
+
         {% include 'includes/errors.html' %}
 
         <div class="form-floating mb-3">
@@ -18,8 +21,8 @@
         </div>
 
         <div class="d-flex align-items-center gap-1">
-            <button type="submit" class="btn btn-dark">Влез</button>
-            <a href="{% url 'password_reset' %}" class="btn btn-secondary">Забравена парола?</a>
+            <button type="submit" class="btn btn-primary">Влез</button>
+            <a href="{% url 'password_reset' %}" class="btn btn-secondary border">Забравена парола?</a>
         </div>
     </form>
 {% endblock %}

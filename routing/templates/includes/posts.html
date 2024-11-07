@@ -1,12 +1,12 @@
-<div id="app" class="mt-3">
-    <div class="mb-5 posts-filter-container align-items-start d-flex justify-content-between">
+<div id="app">
+    <div class="mb-5 posts-filter-container align-items-start d-flex justify-content-between bg-secondary p-3 rounded border">
         <div class="posts-filter-buttons-container d-flex gap-2 flex-wrap">
             {% if not in_space_details %}
-            <span @click="switchPostsFilter('trending')" :class="['badge', 'badge-pill', filter === 'trending' ? 'bg-primary' : 'bg-secondary', filter !== 'trending' && 'text-dark']">Набиращи популярност</span>
+            <span @click="switchPostsFilter('trending')" :class="['badge', 'badge-pill', 'border', filter === 'trending' ? 'bg-primary' : 'bg-white', filter !== 'trending' && 'text-dark']">Набиращи популярност</span>
             {% endif %}
-            <span @click="switchPostsFilter('newest')" :class="['badge', 'badge-pill', filter === 'newest' ? 'bg-primary' : 'bg-secondary', filter !== 'newest' && 'text-dark']">Нови</span>
-            <span @click="switchPostsFilter('oldest')" :class="['badge', 'badge-pill', filter === 'oldest' ? 'bg-primary' : 'bg-secondary', filter !== 'oldest' && 'text-dark']">Стари</span>
-            <span @click="switchPostsFilter('comments')" :class="['badge', 'badge-pill', filter === 'comments' ? 'bg-primary' : 'bg-secondary', filter !== 'comments' && 'text-dark']">Най-коментирани</span>
+            <span @click="switchPostsFilter('newest')" :class="['badge', 'badge-pill', 'border', filter === 'newest' ? 'bg-primary' : 'bg-white', filter !== 'newest' && 'text-dark']">Нови</span>
+            <span @click="switchPostsFilter('oldest')" :class="['badge', 'badge-pill', 'border', filter === 'oldest' ? 'bg-primary' : 'bg-white', filter !== 'oldest' && 'text-dark']">Стари</span>
+            <span @click="switchPostsFilter('comments')" :class="['badge', 'badge-pill', 'border', filter === 'comments' ? 'bg-primary' : 'bg-white', filter !== 'comments' && 'text-dark']">Най-коментирани</span>
         </div>
         {% if not in_space_details %}
         <div class="posts-filter-date-container d-flex gap-2">
@@ -86,7 +86,8 @@
                     </div>
                     <div class="col reactions d-flex justify-content-center align-items-center">
                         <div v-for="reaction in post.reactions" :key="reaction.id" @click="toggleReaction(reaction, post)" :data-reaction-name="reaction.name" class="reaction-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" :fill="reaction.is_reacted ? '#0d6efd' : '#5f6368'">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" 
+                                 :fill="reaction.is_reacted ? 'var(--bs-primary)' : '#5f6368'">
                                 <path :d="reaction.icon"></path>
                             </svg>
                         </div>

@@ -86,7 +86,7 @@
         <div class="d-flex gap-2" id="reactions">
             {% for reaction_type in reaction_types %}
             <div data-reaction-name="{{ reaction_type.name }}" class="reaction-icon" id="reaction_type_{{ reaction_type.pk }}" @click="changeReaction({{ reaction_type.pk }})" data-is-reacted="{% if reaction_type in post_reaction_types %}true{% else %}false{% endif %}">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="{% if reaction_type in post_reaction_types %}#0d6efd{% else %}#5f6368{% endif %}">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="{% if reaction_type in post_reaction_types %}var(--bs-primary){% else %}#5f6368{% endif %}">
                     <path d="{{ reaction_type.icon }}"></path>
                 </svg>
             </div>
@@ -276,7 +276,7 @@
                     .then(() => {
                         document.querySelector(`#reaction_type_${reactionId} svg`).style.fill = '#5f6368';
                         reactionType.setAttribute('data-is-reacted', 'false')
-                        messageApp.triggerNotification('Reaction removed');
+                        messageApp.triggerNotification('Реакцията бе премахната');
                     })
                     .catch((error) => {
                         console.error(error.response.data);
@@ -293,9 +293,9 @@
                             reaction.setAttribute('data-is-reacted', 'false');
                             reaction.querySelector('svg').style.fill = '#5f6368';
                         });
-                        document.querySelector(`#reaction_type_${reactionId} svg`).style.fill = '#0d6efd';
+                        document.querySelector(`#reaction_type_${reactionId} svg`).style.fill = 'var(--bs-primary)';
                         reactionType.setAttribute('data-is-reacted', 'true')
-                        messageApp.triggerNotification('Reacted successfully');
+                        messageApp.triggerNotification('Реагира успешно');
                     })
                     .catch((error) => {
                         console.error(error.response.data);

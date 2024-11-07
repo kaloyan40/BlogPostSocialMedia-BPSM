@@ -110,7 +110,7 @@ class CommentLikes(models.Model):
 
 class ReactionType(models.Model):
     name = models.CharField(max_length=50)
-    icon = models.CharField(max_length=300, blank=True, null=True)
+    icon = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -115,7 +115,7 @@ const postsApp = new Vue({
                 })
                 .then(() => {
                     reaction.is_reacted = false;
-                    messageApp.triggerNotification('Reaction removed');
+                    messageApp.triggerNotification('Реакцията бе премахната');
                 })
                 .catch((error) => {
                     console.error(error.response.data);
@@ -129,7 +129,7 @@ const postsApp = new Vue({
                 .then(() => {
                     post.reactions.forEach((reaction) => reaction.is_reacted = false);
                     reaction.is_reacted = true;
-                    messageApp.triggerNotification('Reacted successfully');
+                    messageApp.triggerNotification('Реагира успешно');
                 })
                 .catch((error) => {
                     console.error(error.response.data);
