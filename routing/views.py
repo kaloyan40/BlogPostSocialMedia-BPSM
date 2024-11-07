@@ -5,6 +5,7 @@ from spaces.models import Space
 from authentication.models import Profile, UserFollows, UserReport
 from spaces.models import Space
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -42,11 +43,11 @@ def search(request):
     return render(request, 'search.html', context)
 
 
-class UserInfoEdit(TemplateView):
+class UserInfoEdit(LoginRequiredMixin, TemplateView):
     template_name = 'user/info-edit.html'
 
 
-class UserProfile(TemplateView):
+class UserProfile(LoginRequiredMixin, TemplateView):
     template_name = 'user/profile.html'
 
     def get_object(self, queryset=None):
@@ -113,7 +114,7 @@ class UserProfile(TemplateView):
         return context
 
 
-class UserFollowersAndFollowing(TemplateView):
+class UserFollowersAndFollowing(LoginRequiredMixin, TemplateView):
     template_name = 'user/followers-following.html'
 
     def get_object(self):

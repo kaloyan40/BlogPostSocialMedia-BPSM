@@ -18,7 +18,9 @@
         <div class="custom-header card-header d-flex justify-content-between align-items-center py-2 px-3">
             <span>{{ space.posts_count }} публикации</span>
             <span>[[ this.followers ]] последователя</span>
+            {% if user.is_authenticated %}
             <button type="button" class="btn btn-sm btn-outline-primary" @click="followUnfollowSpace({{ space.pk }}, $event)" data-is-followed="{% if is_following %}true{% else %}false{% endif %}">{% if is_following %}отследвай{% else %}следвай{% endif %}</button>
+            {% endif %}
         </div>
         <div class="custom-body card-body">
             <div class="ql-zone pb-4">{{ space.description|safe }}</div>

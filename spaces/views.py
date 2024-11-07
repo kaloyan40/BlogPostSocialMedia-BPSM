@@ -8,7 +8,7 @@ from django.db.models import Count
 from .models import Space, UserSpaceFollow, Tag
 
 
-class SpaceCreateView(SuccessMessageMixin, CreateView, LoginRequiredMixin):
+class SpaceCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     template_name = 'spaces/create-space.html'
     form_class = CreateSpaceForm
     success_message = 'Темата беше създадена успешно'
@@ -58,7 +58,7 @@ class SpaceListView(ListView, LoginRequiredMixin):
         return context
 
 
-class SpaceDetailView(DetailView, LoginRequiredMixin):
+class SpaceDetailView(DetailView):
     template_name = 'spaces/space-details.html'
     model = Space
 
@@ -70,6 +70,11 @@ class SpaceDetailView(DetailView, LoginRequiredMixin):
         context = super(SpaceDetailView, self).get_context_data()
         space = self.get_object()
         context['in_space_details'] = True
-        context['is_following'] = UserSpaceFollow.objects.filter(user=self.request.user, space=space).exists()
         context['tags'] = Tag.objects.filter(space=space)
+
+        if self.request.user.is_authenticated:
+            context['is_following'] = UserSpaceFollow.objects.filter(user=self.request.user, space=space).exists()
+        else:
+            context['is_following'] = False
+
         return context

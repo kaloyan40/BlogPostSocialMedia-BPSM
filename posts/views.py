@@ -9,7 +9,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import PermissionDenied
 
 
-class PostCreateView(SuccessMessageMixin, CreateView, LoginRequiredMixin):
+class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'posts/create-post.html'
     form_class = CreatePostForm
@@ -59,9 +59,9 @@ class PostDetailView(DetailView):
         context['tags'] = Tag.objects.filter(post=post)
         if self.request.user.is_authenticated:
             context['post_saved'] = self.request.user.saved_posts.filter(post=post).exists()
+            context['post_reaction_types'] = [r.reaction_type for r in post.reactions.filter(user=self.request.user)]
         context['in_post_details'] = True
         context['reaction_types'] = ReactionType.objects.all()
-        context['post_reaction_types'] = [r.reaction_type for r in post.reactions.filter(user=self.request.user)]
         context['post_images'] = PostImages.objects.filter(post=post)
 
         comment_link = self.request.GET.get('comment_link')

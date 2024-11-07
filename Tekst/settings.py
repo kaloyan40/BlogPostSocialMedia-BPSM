@@ -199,3 +199,9 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
+# Sets the LOGIN_URL globally to ensure that all views requiring authentication will
+# redirect users to this login page:
+
+LOGIN_URL = 'login'
