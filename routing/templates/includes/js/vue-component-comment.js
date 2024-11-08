@@ -171,7 +171,7 @@ Vue.component('comment', {
                 <div v-else>
                     <textarea class="form-control comment-textarea" :ref="'editCommentField' + comment.id" @input="handleEditCommentField($event, comment)">[[ comment.content ]]</textarea>
                     <div class="mt-2 mb-2 gap-1 d-flex">
-                        <button class="btn btn-outline-secondary btn-sm" @click="comment.edit_mode = false">Откажи</button>
+                        <button class="btn btn-outline-secondary btn-sm text-primary" @click="comment.edit_mode = false">Откажи</button>
                         <button class="btn btn-outline-primary btn-sm half-opacity" :ref="'saveCommentButton' + comment.id" @click="editComment(comment)">Запази</button>
                     </div>
                 </div>
