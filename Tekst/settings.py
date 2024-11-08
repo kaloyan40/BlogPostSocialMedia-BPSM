@@ -14,16 +14,6 @@ import socket
 from pathlib import Path
 
 
-def load_env(env_file='.env'):
-    with open(env_file, 'r') as f:
-        for line in f:
-            key, value = line.strip().split('=', 1)
-            os.environ[key] = value.strip()
-
-
-# Load variables from .env
-load_env()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -39,11 +29,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-hostname = socket.gethostname()
-ip_address = socket.gethostbyname(hostname)
-ALLOWED_HOSTS = ['*']
-# python manage.py runserver 0.0.0.0:8001
-print(f"----------------------------------\n{ip_address}:8001\n----------------------------------")
+# UNCOMMENT IF you want to run on network
+# hostname = socket.gethostname()
+# ip_address = socket.gethostbyname(hostname)
+# ALLOWED_HOSTS = ['*']
+# # python manage.py runserver 0.0.0.0:8001
+# print(f"----------------------------------\n{ip_address}:8001\n----------------------------------")
 
 
 # Application definition
