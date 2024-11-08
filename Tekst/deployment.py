@@ -30,7 +30,7 @@ STORAGES = {
 }
 
 
-CONNECTION = os.getenv('AZURE_POSTGRES_CONNECTION_STRING')
+CONNECTION = os.getenv('AZURE_POSTGRESQL_CONNECTIONSTRING')
 CONNECTION_STR = {pair.split('=')[0]:pair.split('=')[1] for pair in CONNECTION.split(' ')}
 
 DATABASES = {
