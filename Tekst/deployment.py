@@ -42,5 +42,3 @@ DATABASES = {
         "PASSWORD": CONNECTION_STR['password'],
     }
 }
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
