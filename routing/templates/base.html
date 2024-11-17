@@ -55,7 +55,7 @@
                         v-model="searchInput"
                         @keyup.enter="search"
                     >
-                    <button class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" @click="search">Търси</button>
+                    <button class="btn btn-primary" style="border-bottom-left-radius: 0;" @click="search">Търси</button>
                 </div>
                 {% if request.user.is_authenticated %}
                 <div class="authenticated-container">
