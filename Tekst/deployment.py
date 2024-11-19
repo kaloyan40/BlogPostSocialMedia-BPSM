@@ -22,12 +22,19 @@ MIDDLEWARE = [
 
 STORAGES = {
     "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "BACKEND": "storages.backends.azure_storage.AzureStorage",
+        "OPTIONS": {
+            'timeout': 20,
+        },
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
+
+AZURE_CONTAINER = os.getenv('AZURE_CONTAINER')
+AZURE_ACCOUNT_NAME = os.getenv('AZURE_ACCOUNT_NAME')
+AZURE_ACCOUNT_KEY = os.getenv('AZURE_ACCOUNT_KEY')
 
 
 CONNECTION = os.getenv('AZURE_POSTGRESQL_CONNECTIONSTRING')
