@@ -79,7 +79,7 @@
     display: block;
 }
 
-.logout-dropdown-button:active svg {
+.white-svg-dropdown-button:active svg {
     fill: white;
 }
 

@@ -2,10 +2,17 @@ import os
 from .settings import *
 from .settings import BASE_DIR
 
-ALLOWED_HOSTS = [os.getenv('WEBSITE_HOSTNAME')]
-CSRF_TRUSTED_ORIGINS = ['https://' + os.getenv('WEBSITE_HOSTNAME')]
+ALLOWED_HOSTS = [
+    os.getenv('WEBSITE_HOSTNAME'),
+    'drasny.com'
+]
+CSRF_TRUSTED_ORIGINS = [
+    f"https://{os.getenv('WEBSITE_HOSTNAME')}",
+    'https://drasny.com'
+]
 DEBUG = False
 SECRET_KEY = os.getenv('WEBSITE_SECRET_KEY')
+# CORS_ALLOWED_ORIGINS = []
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -17,8 +24,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# CORS_ALLOWED_ORIGINS = []
 
 STORAGES = {
     "default": {

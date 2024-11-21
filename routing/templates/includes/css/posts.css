@@ -77,12 +77,6 @@
     fill: var(--bs-primary);
 }
 
-.collapsing {
-    -webkit-transition: none;
-    transition: none;
-    display: none;
-}
-
 .comments-container {
     height: 70vh;
     overflow-y: scroll;
