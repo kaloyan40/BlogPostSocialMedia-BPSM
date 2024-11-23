@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
@@ -159,6 +159,10 @@
                     <span>Излез</span>
                 </a></li>
                 {% else %}
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'home' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M240-200h147.69v-235.38h184.62V-200H720v-360L480-741.54 240-560v360Zm-40 40v-420l280-211.54L760-580v420H532.31v-235.38H427.69V-160H200Zm280-310.77Z"/></svg>
+                    <span>Начало</span>
+                </a></li>
                 <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'list_spaces' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M480.18-345.85q55.97 0 94.97-39.18t39-95.15q0-55.97-39.18-94.97t-95.15-39q-55.97 0-94.97 39.18t-39 95.15q0 55.97 39.18 94.97t95.15 39ZM480-384q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm.11 152q-126.55 0-230.68-67.73Q145.31-367.46 91.08-480q54.23-112.54 158.24-180.27Q353.34-728 479.89-728t230.68 67.73Q814.69-592.54 868.92-480q-54.23 112.54-158.24 180.27Q606.66-232 480.11-232ZM480-480Zm0 216q112 0 207-58t146-158q-51-100-146-158t-207-58q-112 0-207 58T127-480q51 100 146 158t207 58Z"/></svg>
                     <span>Виж теми</span>
@@ -206,7 +210,7 @@
 
                     {% if request.user.is_authenticated %}
                     <h5 class="sidebar-heading mb-0 mt-3">Какво следвам</h5>
-                    <h6 class="sidebar-heading">Хора</h6>
+                    <h6 class="sidebar-heading fw-light">Хора</h6>
                     {% if not followed_users %}Не следвам хора{% endif %}
                     <ul class="list-group list-group-flush">
                     {% for followed_user in followed_users %}
@@ -217,7 +221,7 @@
                     {% endfor %}
                     </ul>
 
-                    <h6 class="sidebar-heading mt-3">Теми</h6>
+                    <h6 class="sidebar-heading mt-3 fw-light">Теми</h6>
                     {% if not sb_followed_spaces %}Не следвам теми{% endif %}
                     <ul class="list-group list-group-flush">
                     {% for followed_space in sb_followed_spaces %}

@@ -13,11 +13,20 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     min-height: calc(2.25rem + 2px);
+    transition: box-shadow 0.3s ease;
+}
+
+.ql-editor:focus {
+    box-shadow: 0 0 0 2px var(--bs-primary), 0 0 12px 6px rgba(22, 75, 161, 0.25);
 }
 
 .ql-editor.ql-blank::before {
     font-style: normal;
     color: #212529;
+}
+
+.ql-editor::before {
+    text-indent: 3px;
 }
 
 .ql-toolbar {

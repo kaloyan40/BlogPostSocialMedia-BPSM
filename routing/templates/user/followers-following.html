@@ -3,9 +3,9 @@
 {% block title %}{{ user.username }} Последователи и Последвани{% endblock %}
 
 {% block main %}
-    <div class="row">
+    <div class="row bg-secondary p-3 border rounded">
         <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2 text-white">
+            <div class="d-flex justify-content-center mb-2">
                 <p><b>{{ user.username }}</b> го следват <b>{{ followers_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followers_list %}
@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2 text-white">
+            <div class="d-flex justify-content-center mb-2">
                 <p><b>{{ user.username }}</b> следва <b>{{ followings_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followings_list %}

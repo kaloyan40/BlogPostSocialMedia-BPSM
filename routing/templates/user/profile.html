@@ -7,7 +7,7 @@
         {% if not is_owner %}
             <div class="d-flex justify-content-between mb-2 p-3 bg-white rounded">
                 <button type="button" class="btn btn-outline-primary" @click="followUnfollowUser"><span v-if="followed">Отследвай</span><span v-else>Следвай</span></button>
-                <button class="btn btn-secondary dropdown-toggle d-flex gap-1 align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" {% if is_reported %}disabled{% endif %}>
+                <button id="report-button" class="btn btn-secondary dropdown-toggle d-flex gap-1 align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" {% if is_reported %}disabled{% endif %}>
                     {% if is_reported %}
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M382-267.69 183.23-466.46 211.77-495 382-324.77 748.23-691l28.54 28.54L382-267.69Z"/></svg>
                     {% endif %}
@@ -331,7 +331,11 @@
                 })
                 .then(() => {
                     messageApp.triggerNotification('Докладва потребител {{ user.username }} успешно.');
-                    setInterval(() => location.reload(), 2000);
+                    setInterval(() => {
+                        const locWithoutHash = location.href.split('#')[0];
+                        console.log(locWithoutHash);
+                        location.replace(locWithoutHash);
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error(error)
@@ -369,6 +373,19 @@
                     console.error(error)
                 })
             }
+        },
+        mounted() {
+            {% if not is_reported %}
+            const hash = window.location.hash;
+            if (hash === '#report') {
+                const reportElement = document.getElementById('report-button');
+                reportElement.classList.add('bg-warning', 'pulse-effect');
+
+                setTimeout(() => {
+                    reportElement.classList.remove('pulse-effect');
+                }, 3000);
+            }
+            {% endif %}
         }
     });
 </script>

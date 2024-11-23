@@ -73,10 +73,10 @@
     <div class="alert alert-danger" role="alert" id="danger-section">
         <h3 class="mb-3">Крайна информация</h3>
         <label for="username">Потребителско име</label>
-        <input type="text" id="username" class="form-control" value="{{ user.username }}" disabled>
+        <input type="text" id="username" class="form-control mb-2" value="{{ user.username }}" disabled>
 
         <label for="email">Имейл адрес</label>
-        <input type="text" id="email" class="form-control" value="{{ user.email }}" disabled>
+        <input type="text" id="email" class="form-control mb-2" value="{{ user.email }}" disabled>
 
         <label for="password">Парола</label>
         <input type="text" id="password" class="form-control" value="**********" disabled>
@@ -87,10 +87,10 @@
             {% include 'includes/errors.html' %}
 
             <label for="current_password">Текуща парола</label>
-            <input type="password" id="current_password" class="form-control" name="old_password" required>
+            <input type="password" id="current_password" class="form-control mb-2" name="old_password" required>
 
             <label for="new_password">Нова парола</label>
-            <input type="password" id="new_password" class="form-control" name="new_password1" required>
+            <input type="password" id="new_password" class="form-control mb-2" name="new_password1" required>
 
             <label for="confirm_password">Повтори паролата</label>
             <input type="password" id="confirm_password" class="form-control" name="new_password2" required>
