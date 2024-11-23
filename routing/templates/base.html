@@ -15,6 +15,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+
     <title>{% block title %}{% endblock %}</title>
 
     {% block head %}{% endblock %}
@@ -41,7 +43,7 @@
         <nav class="navbar navbar-light bg-secondary main-nav">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="logo-img">
-                Istorya.bg
+                Drasny.com
             </a>
 
             <div class="d-flex flex-grow-1 align-items-center">

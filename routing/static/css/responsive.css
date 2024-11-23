@@ -4,6 +4,10 @@
         width: 100%;
     }
 
+    #bootstrap-override main {
+        padding: 0 5px !important;
+    }
+
     .rating-container {
         display: none;
     }
