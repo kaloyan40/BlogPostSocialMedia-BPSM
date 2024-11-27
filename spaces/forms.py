@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'b', 'i', 'u', 's', 'strong',
                                                 'em', 'br', 'span']
 ALLOWED_ATTRIBUTES = {'*': ['class', 'style'], }
-ALLOWED_STYLES = ['color']
+ALLOWED_STYLES = ['color', 'background-color']
 css_sanitizer = CSSSanitizer(allowed_css_properties=ALLOWED_STYLES)
 
 
@@ -45,7 +45,7 @@ class CreateSpaceForm(forms.ModelForm):
                                              strip=True, css_sanitizer=css_sanitizer)
 
         if sanitized_description != unescaped_description:
-            raise ValidationError('В полето има невалиден HTML (най-вероятно link)')
+            raise ValidationError('В полето има невалиден HTML.')
 
         return description
 

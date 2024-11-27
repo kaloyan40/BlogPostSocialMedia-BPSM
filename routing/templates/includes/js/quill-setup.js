@@ -2,7 +2,7 @@ const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
     ['bold', 'italic', 'underline', 'strike'],
     [{ 'align': [] }],
-    [{ 'color': [] }],
+    [{ 'color': [] }, { 'background': [] }],
     ['clean'],
 ];
 
