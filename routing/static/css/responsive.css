@@ -37,9 +37,14 @@
 @media only screen and (max-width: 1000px) {
     .main-nav .authenticated-container,
     .main-nav .btn-group,
-    .text-info-post
+    .text-info-post,
+    .profile-visibility
     {
         display: none;
+    }
+
+    .profile-visibility-text {
+        font-size: 1rem;
     }
 
     #bootstrap-override .responsive-dropdown {
