@@ -15,7 +15,7 @@ SECRET_KEY = os.getenv('WEBSITE_SECRET_KEY')
 # CORS_ALLOWED_ORIGINS = []
 
 SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ('X-Forwarded-Proto', 'https')
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
