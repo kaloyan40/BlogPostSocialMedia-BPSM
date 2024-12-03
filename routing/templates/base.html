@@ -179,9 +179,10 @@
 
     <div class="container main">
         <div class="row">
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar main-sidebar collapse bg-secondary">
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar main-sidebar collapse bg-secondary border rounded">
                 <div class="sidebar-sticky pt-3">
                     <a href="{% url 'create_space' %}" class="btn btn-outline-primary border w-100 mb-4">Създай тема</a>
+                    <div class="text-center"><a href="{% url 'list_spaces' %}" class="text-decoration-none">Виж всички теми</a></div>
                     <h5 class="sidebar-heading mb-1">Проверени теми</h5>
                     <ul class="list-group list-group-flush">
                     {% for space in verified_spaces %}

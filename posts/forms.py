@@ -74,9 +74,8 @@ class CreatePostForm(forms.ModelForm):
         if tags:
             try:
                 list_tags = tags.split(",")
-                for tag_id in list_tags:
-                    tag = Tag.objects.get(id=tag_id)
-                    tag.post.add(instance)
+                tags_to_add = Tag.objects.filter(id__in=list_tags)
+                instance.tag_set.add(*tags_to_add)
             except Exception as e:
                 raise ValidationError(f'Невалидни тагове: {e}')
 

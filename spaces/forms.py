@@ -68,6 +68,6 @@ class CreateSpaceForm(forms.ModelForm):
             tags = self.cleaned_data['tags']
             if tags:
                 tag_list = [tag.strip() for tag in tags.split(',')]
-                for tag_name in tag_list:
-                    Tag.objects.create(name=tag_name, space=space)
+                new_tags = [Tag(name=tag_name, space=space) for tag_name in tag_list]
+                Tag.objects.bulk_create(new_tags)
         return space

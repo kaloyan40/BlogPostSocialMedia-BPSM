@@ -25,8 +25,8 @@
             <p>{{ notification.extra_data.space_name }}</p>
         {% endif %}
         <div class="d-flex gap-2 align-items-center">
-            <span>{{ notification.get_notification_type_display }}</span>
-            <span>|</span>
+            <span class="text-muted">{{ notification.get_notification_type_display }}</span>
+            <span class="text-muted">|</span>
             <span>{{ notification.timestamp }}</span>
         </div>
     </div>

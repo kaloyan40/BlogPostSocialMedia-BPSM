@@ -18,7 +18,7 @@
         {% include 'includes/errors.html' %}
         <div v-if="showInvalidMessage" class="alert alert-danger d-flex align-items-center justify-content-center gap-1" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M74.62-140 480-840l405.38 700H74.62ZM178-200h604L480-720 178-200Zm302-47.69q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02T480-312.31q-13.73 0-23.02 9.29T447.69-280q0 13.73 9.29 23.02t23.02 9.29Zm-30-104.62h60v-200h-60v200ZM480-460Z"/></svg>
-            <p><strong>Името</strong> трябва да е <strong>поне 2 символа</strong>, <strong>описанието</strong> трябва да е <strong>поне 15 символа</strong> и трябва да има <strong>поне 3 тага</strong>.</p>
+            <p class="text-center"><strong>Името</strong> трябва да е <strong>поне 2 символа</strong> и да не превишава <strong>30</strong> (сега е <b>[[ nameInput.length ]]</b>), <strong>описанието</strong> трябва да е <strong>поне 15 символа</strong> и трябва да има <strong>поне 3 тага</strong>.</p>
         </div>
 
         <div class="form-floating mb-3">
@@ -33,7 +33,7 @@
             </div>
             <div v-if="showInvalidMessage && !quillValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-                <p v-if="!quillValid">Има невалидно описание. Може да има - <b>линк</b>, <b>заглавие от тип 4 и нагоре</b>, <b>снимка</b> и други.</p>
+                <p v-if="!quillValid">Има невалидно описание. Може да има следните <b>НЕВАЛИДНИ</b> елемента - <b>линк</b>, <b>заглавие от тип 4 и нагоре</b>, <b>снимка</b> и други.</p>
             </div>
             <div id="editor" class="form-control"></div>
         </div>
@@ -146,7 +146,7 @@
         },
         watch: {
             nameInput(newVal) {
-                this.nameInputValid = newVal.length > 1;
+                this.nameInputValid = newVal.length > 1 && newVal.length <= 30;
             },
             descriptionInput(newVal) {
                 const cleanText = newVal.replace(/(<([^>]+)>)/gi, "");
