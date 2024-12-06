@@ -21,7 +21,10 @@
 
     {% block head %}{% endblock %}
 
-    {# VueJS integration #}
+    {# Google Adsense #}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5699563227200174" crossorigin="anonymous"></script>
+
+    {# VueJS Integration #}
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     {# include Axios #}
@@ -130,7 +133,7 @@
             </div>
         </nav>
         <div class="collapse bg-secondary" id="navbarToggleExternalContent">
-            <ul class="list-group pb-2">
+            <ul class="list-group">
                 {% if request.user.is_authenticated %}
                 <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'home' %}">
                     <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M240-200h147.69v-235.38h184.62V-200H720v-360L480-741.54 240-560v360Zm-40 40v-420l280-211.54L760-580v420H532.31v-235.38H427.69V-160H200Zm280-310.77Z"/></svg>
@@ -174,6 +177,12 @@
                 </a></li>
                 {% endif %}
             </ul>
+            <hr class="my-1">
+            <div class="p-3 d-flex flex-column">
+                <small><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></small>
+                <small><a href="{% url 'terms_and_conditions' %}">Условия</a></small>
+                <small class="mt-2">&copy; Drasny.com</small>
+            </div>
         </div>
     </header>
 
@@ -235,6 +244,12 @@
                     {% endfor %}
                     </ul>
                     {% endif %}
+                </div>
+                <hr>
+                <div class="d-flex flex-column">
+                    <small><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></small>
+                    <small><a href="{% url 'terms_and_conditions' %}">Условия</a></small>
+                    <div class="mt-2"><small>&copy; Drasny.com</small></div>
                 </div>
             </nav>
 

@@ -1,9 +1,12 @@
 from django.urls import path, include
-from routing.views import Home, UserProfile, UserInfoEdit, UserFollowersAndFollowing, search
+from routing.views import Home, UserProfile, UserInfoEdit, UserFollowersAndFollowing, search, PrivacyPolicy, \
+                            TermsAndConditions
 from notifications.views import UserListNotifications
 
 urlpatterns = [
     path('', Home.as_view(), name='home'),
+    path('privacy-policy/', PrivacyPolicy.as_view(), name='privacy_policy'),
+    path('terms-and-conditions/', TermsAndConditions.as_view(), name='terms_and_conditions'),
     path('search/', search, name='search'),
     path('user/', include([
         path('edit/', UserInfoEdit.as_view(), name='user_edit'),

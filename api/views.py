@@ -59,7 +59,7 @@ class UnfollowSpaceView(views.APIView):
             return Response({"detail": "Not following this space."}, status=status.HTTP_400_BAD_REQUEST)
 
         follow.delete()
-        return Response({"message": "Темата бе отпоследвана"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Темата бе отследвана"}, status=status.HTTP_201_CREATED)
 
 
 class SpaceListView(generics.ListAPIView):
