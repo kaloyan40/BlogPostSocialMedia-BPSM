@@ -42,33 +42,33 @@
         <h3 class="card-title">Основна информация</h3>
 
         <label for="bio">Био</label>
-        <textarea v-model="bio" class="form-control"></textarea>
+        <textarea v-model="bio" class="form-control mb-3"></textarea>
 
         <label for="first_name">Име</label>
-        <input v-model="firstName" type="text" id="first_name" class="form-control">
+        <input v-model="firstName" type="text" id="first_name" class="form-control mb-3">
 
         <label for="last_name">Фамилия</label>
-        <input v-model="lastName" type="text" id="last_name" class="form-control">
+        <input v-model="lastName" type="text" id="last_name" class="form-control mb-3">
 
         <label for="birth_date">Рожденна дата</label>
-        <input v-model="birthDate" type="date" id="birth_date" class="form-control">
+        <input v-model="birthDate" type="date" id="birth_date" class="form-control mb-3">
 
         <label for="gender">Пол</label>
-        <select v-model="gender" class="form-control" name="gender" id="gender">
-            <option value="">Не избирам нищо</option>
+        <select v-model="gender" class="form-control mb-3" name="gender" id="gender">
+            <option value="">Остави празно</option>
             <option value="male">Мъж</option>
             <option value="female">Жена</option>
         </select>
 
         <label for="country">Държава</label>
-        <input v-model="country" type="text" id="country" class="form-control">
+        <input v-model="country" type="text" id="country" class="form-control mb-3">
 
         <label for="city">Град</label>
         <input v-model="city" type="text" id="city" class="form-control">
     </div>
     </div>
 
-    <button class="btn btn-primary mb-5 w-100" @click="updateUserProfile">Запази</button>
+    <button class="btn btn-primary mb-5 w-100 shadow" @click="updateUserProfile">Запази</button>
 
     <div class="alert alert-danger" role="alert" id="danger-section">
         <h3 class="mb-3">Крайна информация</h3>

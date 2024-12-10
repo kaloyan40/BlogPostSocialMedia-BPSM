@@ -211,7 +211,7 @@
                             <h3 class="fw-light">{{ space.name }}</h3>
                         </div>
                         <p>{{ space.description|striptags|truncatechars:150 }}</p>
-                        {% if is_owner %}<button class="btn btn-sm btn-danger position-absolute" style="top: 10px; right: 10px; z-index: 100;" @click.stop="confirmDeleteSpace({{ space.pk }})">Изтрий</button>{% endif %}
+                        {% if is_owner %}<button class="btn btn-sm btn-danger position-absolute shadow" style="top: 10px; right: 10px; z-index: 100;" @click.stop="confirmDeleteSpace({{ space.pk }})">Изтрий</button>{% endif %}
                     </div>
                 </div>
                 {% endfor %}

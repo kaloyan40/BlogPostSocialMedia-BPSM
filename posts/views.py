@@ -20,9 +20,8 @@ class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
 
         images = self.request.FILES.getlist('imagesInput')
-
-        for image in images:
-            PostImages.objects.create(post=self.object, image=image)
+        post_images = [PostImages(post=self.object, image=image) for image in images]
+        PostImages.objects.bulk_create(post_images)
 
         return response
 
