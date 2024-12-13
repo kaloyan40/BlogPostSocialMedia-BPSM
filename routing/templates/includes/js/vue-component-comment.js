@@ -141,7 +141,7 @@ Vue.component('comment', {
     },
     template: `
         <div class="card">
-            <div :class="['comment', 'card-body', {'linked-comment': comment.is_linked}]" v-for="comment in comments" :key="comment.id" v-if="!comment.deleted && !(!comment.is_linked && comment.id === {% if request.GET.comment_link %}{{ request.GET.comment_link }}{% else %}none{% endif %})" style="min-width: 400px;">
+            <div :class="['comment', 'card-body', {'linked-comment': comment.is_linked}]" v-for="comment in comments" :key="comment.id" v-if="!comment.deleted && !(!comment.is_linked && comment.id === {% if request.GET.comment_link %}{{ request.GET.comment_link }}{% else %}none{% endif %})">
                 <div v-if="comment.is_linked" class="linked-comment-alert">
                     <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" fill="#000000"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z"/></svg>
                     <span>Връзка с коментар</span>
@@ -154,8 +154,8 @@ Vue.component('comment', {
                             <svg xmlns="http://www.w3.org/2000/svg" height="19px" viewBox="0 -960 960 960" width="19px" class="icon-primary" fill="currentColor"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
                             <span>[[ comment.user.username ]]</span>
                         </a>
-                        <span>-</span>
-                        <span>[[ convertIso8601Format(comment.created_at) ]]</span>
+                        <small>-</small>
+                        <small class="no-wrap">[[ convertIso8601Format(comment.created_at) ]]</small>
                     </small>
                     <div class="dropdown">
                         <div class="comment-options d-flex align-items-center justify-content-center" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -170,7 +170,7 @@ Vue.component('comment', {
                         </ul>
                     </div>
                 </div>
-                <p v-if="!comment.edit_mode" class="card-text comment">[[ comment.content ]]</p>
+                <p v-if="!comment.edit_mode" class="card-text comment text-black">[[ comment.content ]]</p>
                 <div v-else>
                     <textarea class="form-control comment-textarea" :ref="'editCommentField' + comment.id" @input="handleEditCommentField($event, comment)">[[ comment.content ]]</textarea>
                     <div class="mt-2 mb-2 gap-1 d-flex">

@@ -65,9 +65,9 @@
         {% endif %}
         <div class="list-group list-group-flush text-muted">
             <li class="list-group-item d-flex justify-content-between">
-                <span @click="toggleCommentsSection(post)" class="cursor-pointer">
-                    [[ post.comments_count ]] коментара
-                </span>
+                <small @click="toggleCommentsSection(post)" class="cursor-pointer">
+                    <b>[[ post.comments_count ]]</b> коментара
+                </small>
                 <div class="rating-container">
                     <div class="d-flex gap-2 align-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" height="23px" viewBox="0 -960 960 960" width="23px" fill="#000000"><path d="M148.31-276.15 120-304.46l252.15-254.16 160 160 241.08-237.53H640v-40h200v200h-40v-131.7L532.15-340l-160-160-223.84 223.85Z"/></svg>
@@ -75,7 +75,9 @@
                         <small>[[ (Math.round(post.rating * 100) / 100).toFixed(1) ]]</small>
                     </div>
                 </div>
-                <span>[[ post.reactions_count ]] реакции</span>
+                <small>
+                    <b>[[ post.reactions_count ]]</b> реакции
+                </small>
 
                 {# [[ post.visibility ]] #}
             </li>
@@ -115,7 +117,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" @click="toggleCommentsSection(post)">Затвори</button>
+                            <button type="button" class="btn btn-secondary border" @click="toggleCommentsSection(post)">Затвори</button>
                         </div>
                     </div>
                 </div>
