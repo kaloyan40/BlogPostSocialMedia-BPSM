@@ -5,7 +5,7 @@ Vue.component('comment', {
         {% include 'includes/js/vue-method-convert-iso-8601.js' %}
         {% include 'includes/js/vue-method-adjust-textarea-height.js' %}
         redirectToUser(username) {
-            window.location.href = `/user/profile/${username}/#report`;
+            window.location.href = `/user/profile/${username.toLowerCase()}/#report`;
         },
         showCommentForm(commentId) {
             document.getElementById(`inputContainer${commentId}`).style.display = "block";

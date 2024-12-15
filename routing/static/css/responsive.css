@@ -68,4 +68,13 @@
     #bootstrap-override .spaces-filter-container {
         flex-direction: column;
     }
+
+    .ffs-split-line {
+        margin: 20px 0;
+        opacity: 0;
+    }
+
+    .ffs-look-followings {
+        display: block !important;
+    }
 }

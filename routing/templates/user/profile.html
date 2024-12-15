@@ -34,7 +34,7 @@
         </div>
 
         {% if denied_message %}
-            <div class="d-flex align-items-center gap-1">
+            <div class="d-flex align-items-center gap-1 bg-white p-3 border rounded mb-1">
                 <svg xmlns="http://www.w3.org/2000/svg" height="34px" viewBox="0 -960 960 960" width="34px" fill="#000000"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
                 <h2 class="fw-light">{{ user.username }}</h2>
             </div>
@@ -114,7 +114,12 @@
                                 </div>
                             </div>
                         {% endif %}
-                        {% if is_owner %}<button class="btn btn-sm btn-danger position-absolute shadow" style="top: 10px; right: 10px;" @click.stop="confirmDeletePost({{ post.pk }})">Изтрий</button>{% endif %}
+                        {% if is_owner %}
+                        <div class="position-absolute" style="top: 10px; right: 10px;">
+                            <button class="btn btn-sm btn-secondary shadow" @click.stop="redirectToEditPost('{{ post.slug }}')">Редактирай</button>
+                            <button class="btn btn-sm btn-danger shadow" @click.stop="confirmDeletePost({{ post.pk }})">Изтрий</button>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -164,7 +169,7 @@
                 >
                     <div class="card-body">
                         <h3 class="fw-light">{{ comment.content }}</h3>
-                        <p>Коментирано в <a href="{% url 'post_details' comment.post.slug %}">{{ comment.post.name }}</a></p>
+                        <p>Коментирано в <a href="{% url 'post_details' comment.post.slug %}">{% if comment.post.name %}{{ comment.post.name }}{% else %}тази публикация{% endif %}</a></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -177,7 +182,7 @@
                 >
                     <div class="card-body">
                         <h3 class="fw-light">{{ reply.content }}</h3>
-                        <p>Отговорено в <a href="{% url 'post_details' reply.post.slug %}">{{ reply.post.name }}</a></p>
+                        <p>Отговорено в <a href="{% url 'post_details' reply.post.slug %}">{% if reply.post.name %}{{ reply.post.name }}{% else %}тази публикация{% endif %}</a></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -190,7 +195,7 @@
                 >
                     <div class="card-body">
                         <h3 class="fw-light">{{ comment_like.comment.content }}</h3>
-                        <p>Коментар от <a href="{% url 'post_details' comment_like.comment.post.slug %}">{{ comment_like.comment.post.name }}</a></p>
+                        <p>Коментар от <a href="{% url 'post_details' comment_like.comment.post.slug %}">{% if comment_like.comment.post.name %}{{ comment_like.comment.post.name }}{% else %}тази публикация{% endif %}</a></p>
                     </div>
                 </div>
                 {% endfor %}
@@ -211,7 +216,12 @@
                             <h3 class="fw-light">{{ space.name }}</h3>
                         </div>
                         <p>{{ space.description|striptags|truncatechars:150 }}</p>
-                        {% if is_owner %}<button class="btn btn-sm btn-danger position-absolute shadow" style="top: 10px; right: 10px; z-index: 100;" @click.stop="confirmDeleteSpace({{ space.pk }})">Изтрий</button>{% endif %}
+                        {% if is_owner %}
+                        <div class="position-absolute" style="top: 10px; right: 10px; z-index: 100;">
+                            <button class="btn btn-sm btn-secondary shadow" @click.stop="redirectToEditSpace('{{ space.slug }}')">Редактирай</button>
+                            <button class="btn btn-sm btn-danger shadow" @click.stop="confirmDeleteSpace({{ space.pk }})">Изтрий</button>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -255,6 +265,12 @@
         },
         methods: {
             {% include 'includes/js/vue-method-copy-to-clipboard.js' %}
+            redirectToEditPost(slug) {
+                window.location.href=`/post/edit/${slug}/`;
+            },
+            redirectToEditSpace(slug) {
+                window.location.href=`/space/edit/${slug}/`;
+            },
             changeVisibilityName(newVisibility) {
                 const valueDisplay = {
                     {% for value, display in display_choices %}

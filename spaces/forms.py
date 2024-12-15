@@ -1,15 +1,7 @@
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
-import html
+from Tekst.utils import sanitize_and_escape
 from django import forms
 from .models import Space, Tag
 from django.core.exceptions import ValidationError
-
-ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'b', 'i', 'u', 's', 'strong',
-                                                'em', 'br', 'span']
-ALLOWED_ATTRIBUTES = {'*': ['class', 'style'], }
-ALLOWED_STYLES = ['color', 'background-color']
-css_sanitizer = CSSSanitizer(allowed_css_properties=ALLOWED_STYLES)
 
 
 class CreateSpaceForm(forms.ModelForm):
@@ -40,14 +32,7 @@ class CreateSpaceForm(forms.ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get('description')
-        unescaped_description = html.unescape(description)
-        sanitized_description = bleach.clean(unescaped_description, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
-                                             strip=True, css_sanitizer=css_sanitizer)
-
-        if sanitized_description != unescaped_description:
-            raise ValidationError('В полето има невалиден HTML.')
-
-        return description
+        return sanitize_and_escape(description)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -71,3 +56,19 @@ class CreateSpaceForm(forms.ModelForm):
                 new_tags = [Tag(name=tag_name, space=space) for tag_name in tag_list]
                 Tag.objects.bulk_create(new_tags)
         return space
+
+
+class EditSpaceForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Enter Name', 'class': "form-control", 'v-model': 'nameInput'}
+        ))
+
+    description = forms.CharField(
+        widget=forms.HiddenInput(
+            attrs={'v-model': 'descriptionInput'}
+        ))
+
+    class Meta:
+        model = Space
+        fields = ['name', 'description']
