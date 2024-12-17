@@ -35,9 +35,7 @@ class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        user_slug = self.object.user.profile.slug
-        post_id = self.object.id
-        return f"{reverse_lazy('user_profile', kwargs={'slug': user_slug})}#post_{post_id}"
+        return reverse_lazy('post_details', kwargs={'slug': self.object.slug})
 
 
 class PostEditView(View):

@@ -72,3 +72,7 @@ class EditSpaceForm(forms.ModelForm):
     class Meta:
         model = Space
         fields = ['name', 'description']
+
+    def clean_description(self):
+        description = self.cleaned_data.get('description')
+        return sanitize_and_escape(description)
