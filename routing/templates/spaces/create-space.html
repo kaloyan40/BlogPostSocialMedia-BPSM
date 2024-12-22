@@ -107,7 +107,7 @@
             },
             addTag() {
                 if (this.newTag.trim() !== '') {
-                    const tagsToAdd = this.newTag.split(",").map(tag => tag.trim()).filter(tag => tag !== '');
+                    const tagsToAdd = this.newTag.split(",").map(tag => tag.trim()).filter(tag => tag !== '' && tag.length <= 30);
                     this.tags.push(...tagsToAdd);
 
                     this.newTag = '';
