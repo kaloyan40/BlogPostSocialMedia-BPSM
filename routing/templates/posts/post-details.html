@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ post.name }}{% endblock %}
+{% block title %}{% if post.name %}{{ post.name }}{% else %}Публикация на {{ post.user.username }}{% endif %}{% endblock %}
 
 {% block head %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/5.4.4/photoswipe.min.css" integrity="sha512-LFWtdAXHQuwUGH9cImO9blA3a3GfQNkpF2uRlhaOpSbDevNyK1rmAjs13mtpjvWyi+flP7zYWboqY+8Mkd42xA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -39,33 +39,38 @@
             <div data-reaction-name="Сподели" class="reaction-icon" data-bs-toggle="modal" data-bs-target="#sharingModal"><svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#5f6368"><path d="M672.22-100q-44.91 0-76.26-31.41-31.34-31.41-31.34-76.28 0-6 4.15-29.16L284.31-404.31q-14.46 15-34.36 23.5t-42.64 8.5q-44.71 0-76.01-31.54Q100-435.39 100-480q0-44.61 31.3-76.15 31.3-31.54 76.01-31.54 22.74 0 42.64 8.5 19.9 8.5 34.36 23.5l284.46-167.08q-2.38-7.38-3.27-14.46-.88-7.08-.88-15.08 0-44.87 31.43-76.28Q627.49-860 672.4-860t76.25 31.44Q780-797.13 780-752.22q0 44.91-31.41 76.26-31.41 31.34-76.28 31.34-22.85 0-42.5-8.69Q610.15-662 595.69-677L311.23-509.54q2.38 7.39 3.27 14.46.88 7.08.88 15.08t-.88 15.08q-.89 7.07-3.27 14.46L595.69-283q14.46-15 34.12-23.69 19.65-8.69 42.5-8.69 44.87 0 76.28 31.43Q780-252.51 780-207.6t-31.44 76.25Q717.13-100 672.22-100Zm.09-60q20.27 0 33.98-13.71Q720-187.42 720-207.69q0-20.27-13.71-33.98-13.71-13.72-33.98-13.72-20.27 0-33.98 13.72-13.72 13.71-13.72 33.98 0 20.27 13.72 33.98Q652.04-160 672.31-160Zm-465-272.31q20.43 0 34.25-13.71 13.83-13.71 13.83-33.98 0-20.27-13.83-33.98-13.82-13.71-34.25-13.71-20.11 0-33.71 13.71Q160-500.27 160-480q0 20.27 13.6 33.98 13.6 13.71 33.71 13.71Zm465-272.3q20.27 0 33.98-13.72Q720-732.04 720-752.31q0-20.27-13.71-33.98Q692.58-800 672.31-800q-20.27 0-33.98 13.71-13.72 13.71-13.72 33.98 0 20.27 13.72 33.98 13.71 13.72 33.98 13.72Zm0 496.92ZM207.69-480Zm464.62-272.31Z"/></svg></div>
             <div data-reaction-name="Виж коментари" class="reaction-icon"><svg @click="navigateToComments" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#5f6368"><path d="M250-410h460v-60H250v60Zm0-120h460v-60H250v60Zm0-120h460v-60H250v60Zm610 531.54L718.46-260H172.31Q142-260 121-281q-21-21-21-51.31v-455.38Q100-818 121-839q21-21 51.31-21h615.38Q818-860 839-839q21 21 21 51.31v669.23ZM172.31-320H744l56 55.39v-523.08q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H172.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v455.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM160-320v-480 480Z"/></svg></div>
             <div data-reaction-name="Виж реакции" class="reaction-icon"><svg @click="navigateToReactions" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#5f6368"><path d="M365.39-271.54h215.38q13.54 0 24.58-6.39 11.03-6.38 15.88-18.69l76.31-177.53q2.38-6.16 3.57-11.93 1.2-5.77 1.2-11.15v-25.08q0-12.77-8.23-21t-21-8.23H477.54l23.29-125.97q1.94-9.26-1.06-17.49-3-8.23-9.23-14.46l-18.23-18.23L317.54-560q-6.08 6.24-9.12 14.04-3.03 7.81-3.03 17.5v196.92q0 24.75 17.62 42.37 17.63 17.63 42.38 17.63ZM480.07-100q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg></div>
+            {% if post.user == request.user %}
+            <div data-reaction-name="Редактирай" class="reaction-icon" onclick="window.location.href='{% url 'edit_post' post.slug %}'">
+                <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#5f6368"><path d="M200-200h43.92l427.93-427.92-43.93-43.93L200-243.92V-200Zm-40 40v-100.77l527.23-527.77q6.15-5.48 13.57-8.47 7.43-2.99 15.49-2.99t15.62 2.54q7.55 2.54 13.94 9.15l42.69 42.93q6.61 6.38 9.04 14 2.42 7.63 2.42 15.25 0 8.13-2.74 15.56-2.74 7.42-8.72 13.57L260.77-160H160Zm600.77-556.31-44.46-44.46 44.46 44.46ZM649.5-649.5l-21.58-22.35 43.93 43.93-22.35-21.58Z"/></svg>
+            </div>
+            {% endif %}
         </div>
     </div>
-    <div class="card d-flex flex-column px-4 pb-3 box-shadow position-relative bg-secondary">
-        <div class="d-flex gap-2" style="position: absolute; top: 10px; right: 20px;">
+    <div class="card d-flex flex-column px-4 py-3 box-shadow position-relative bg-secondary">
+        <div class="d-flex gap-2" style="position: absolute; top: 5px; right: 15px;">
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="m152-287-20-20 239-241 160 160 251-247H640v-28h188v188h-28v-140L531-346 371-506 152-287Z"/></svg>
-                <span>{{ post.rating|floatformat:2 }}<span class="text-info-post"> рейтинг</span></span>
+                <small>{{ post.rating|floatformat:2 }}<span class="text-info-post"> рейтинг</span></small>
             </div>
             <span>&middot;</span>
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M266-426h268v-28H266v28Zm0-120h428v-28H266v28Zm0-120h428v-28H266v28ZM132-180v-588q0-26 17-43t43-17h576q26 0 43 17t17 43v416q0 26-17 43t-43 17H244L132-180Zm100-140h536q12 0 22-10t10-22v-416q0-12-10-22t-22-10H192q-12 0-22 10t-10 22v520l72-72Zm-72 0v-480 480Z"/></svg>
-                <span>{{ post.comments_count }}<span class="text-info-post"> коментара</span></span>
+                <small>{{ post.comments_count }}<span class="text-info-post"> коментара</span></small>
             </div>
             <span>&middot;</span>
             <div class="d-flex gap-1 align-items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M374-322h208q8 0 13.5-3t8.5-11l64-148q3-8 4.5-15t1.5-13v-14q0-6-3-9t-9-3H448l22.15-109.92Q472-656 469-663t-8-12l-1-1-108 116q-3 3.43-4.5 7.71Q346-548 346-542v192q0 11.55 8.23 19.77Q362.45-322 374-322Zm106.17 190q-72.17 0-135.73-27.39-63.56-27.39-110.57-74.35-47.02-46.96-74.44-110.43Q132-407.65 132-479.83q0-72.17 27.39-135.73 27.39-63.56 74.35-110.57 46.96-47.02 110.43-74.44Q407.65-828 479.83-828q72.17 0 135.73 27.39 63.56 27.39 110.57 74.35 47.02 46.96 74.44 110.43Q828-552.35 828-480.17q0 72.17-27.39 135.73-27.39 63.56-74.35 110.57-46.96 47.02-110.43 74.44Q552.35-132 480.17-132Zm-.17-28q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-                <span>{{ post.reactions_count }}<span class="text-info-post"> реакции</span></span>
+                <small>{{ post.reactions_count }}<span class="text-info-post"> реакции</span></small>
             </div>
         </div>
         {% if post.name %}<h1 class="mt-5 mb-5">{{ post.name }}</h1>{% else %}<div class="mt-3"></div>{% endif %}
-        <div class="d-flex gap-4">
+        <div class="d-flex gap-4 post-details-username-date-container">
             <a class="d-flex gap-1 align-items-end text-decoration-none" href="{% url 'user_profile' post.user.profile.slug %}">
                 <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" class="icon-primary" fill="currentColor"><path d="M480-492.72q-57.75 0-96.44-38.69t-38.69-96.56q0-57.88 38.69-96.44 38.69-38.56 96.44-38.56t96.44 38.56q38.69 38.56 38.69 96.44 0 57.87-38.69 96.56-38.69 38.69-96.44 38.69ZM180-187.69v-80.26q0-31.28 16.71-55.58 16.7-24.29 43.8-37.34 61.88-28.41 121.06-42.74 59.18-14.34 118.42-14.34t118.23 14.54q58.98 14.54 120.69 42.72 27.81 13.03 44.45 37.24Q780-299.23 780-267.95v80.26H180Zm50.26-50.26h499.48v-30q0-14.46-8.93-27.45-8.94-12.99-23.58-20.6-56.56-27.62-109.34-39.65-52.78-12.04-107.89-12.04t-108.43 12.04Q318.26-343.62 262.36-316q-14.64 7.61-23.37 20.6-8.73 12.99-8.73 27.45v30ZM480-542.97q35.97 0 60.42-24.45 24.45-24.45 24.45-60.43 0-35.97-24.45-60.42-24.45-24.45-60.42-24.45t-60.42 24.45q-24.45 24.45-24.45 60.42 0 35.98 24.45 60.43 24.45 24.45 60.42 24.45Zm0-84.88Zm0 389.9Z"/></svg>
                 <span class="fs-5">{{ post.user.username }}</span>
             </a>
             <div class="d-flex gap-1 align-items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M202.57-100q-25.79 0-44.18-18.39T140-162.57v-564.61q0-25.79 18.39-44.17 18.39-18.39 44.18-18.39h67.69v-74.87h54.1v74.87h312.82v-74.87H690v74.87h67.43q25.79 0 44.18 18.39Q820-752.97 820-727.18v564.61q0 25.79-18.39 44.18T757.43-100H202.57Zm0-50.26h554.86q4.62 0 8.47-3.84 3.84-3.85 3.84-8.47v-389.99H190.26v389.99q0 4.62 3.84 8.47 3.85 3.84 8.47 3.84Zm-12.31-452.56h579.48v-124.36q0-4.61-3.84-8.46-3.85-3.85-8.47-3.85H202.57q-4.62 0-8.47 3.85-3.84 3.85-3.84 8.46v124.36Zm0 0v-136.67 136.67ZM480-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35ZM480-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q494.69-240 480-240Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q334.69-240 320-240Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q654.69-240 640-240Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="22px" viewBox="0 -960 960 960" width="22px" fill="#000000"><path d="M202.57-100q-25.79 0-44.18-18.39T140-162.57v-564.61q0-25.79 18.39-44.17 18.39-18.39 44.18-18.39h67.69v-74.87h54.1v74.87h312.82v-74.87H690v74.87h67.43q25.79 0 44.18 18.39Q820-752.97 820-727.18v564.61q0 25.79-18.39 44.18T757.43-100H202.57Zm0-50.26h554.86q4.62 0 8.47-3.84 3.84-3.85 3.84-8.47v-389.99H190.26v389.99q0 4.62 3.84 8.47 3.85 3.84 8.47 3.84Zm-12.31-452.56h579.48v-124.36q0-4.61-3.84-8.46-3.85-3.85-8.47-3.85H202.57q-4.62 0-8.47 3.85-3.84 3.85-3.84 8.46v124.36Zm0 0v-136.67 136.67ZM480-396.92q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.04 0-14.69 10.34-25.04 10.35-10.34 25.04-10.34t25.04 10.34q10.34 10.35 10.34 25.04 0 14.7-10.34 25.04-10.35 10.35-25.04 10.35ZM480-240q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q494.69-240 480-240Zm-160 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q334.69-240 320-240Zm320 0q-14.69 0-25.04-10.35-10.34-10.34-10.34-25.03 0-14.7 10.34-25.04 10.35-10.35 25.04-10.35t25.04 10.35q10.34 10.34 10.34 25.04 0 14.69-10.34 25.03Q654.69-240 640-240Z"/></svg>
                 <span>{{ post.created_at }}</span>
             </div>
         </div>
@@ -73,10 +78,10 @@
         {% if tags %}
         <div class="text-muted mt-4 d-flex flex-wrap gap-1">
             {% for tag in tags %}
-            <span class="badge bg-primary d-flex align-items-center">
+            <span class="badge bg-white d-flex align-items-center border">
                 <div class="d-flex align-items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#FFFFFF"><path d="M840-480 666-234q-11 16-28.5 25t-37.5 9H200q-33 0-56.5-23.5T120-280v-400q0-33 23.5-56.5T200-760h400q20 0 37.5 9t28.5 25l174 246Zm-98 0L600-680H200v400h400l142-200Zm-542 0v200-400 200Z" /></svg>
-                    <span>{{ tag.name }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M840-480 666-234q-11 16-28.5 25t-37.5 9H200q-33 0-56.5-23.5T120-280v-400q0-33 23.5-56.5T200-760h400q20 0 37.5 9t28.5 25l174 246Zm-98 0L600-680H200v400h400l142-200Zm-542 0v200-400 200Z" /></svg>
+                    <span class="text-black">{{ tag.name }}</span>
                 </div>
             </span>
             {% endfor %}
@@ -95,12 +100,21 @@
     </div>
 
     {% if post_images %}
-    <div :class="['gallery', 'mt-5', 'card-images-container', 'justify-content-center', {'opacity-0': true}]">
-        {% for post_image in post_images %}
-        <a href="{{ post_image.image.url }}" data-pswp-width="{{ post_image.image.width }}" data-pswp-height="{{ post_image.image.height }}" class="gallery-item card-image cursor-pointer">
-            <img src="{{ post_image.image.url }}" alt="photo-image-{{ post_image.pk }}">
-        </a>
-        {% endfor %}
+    <div class="responsive-gallery-main mt-4 bg-secondary p-2 border rounded box-shadow">
+        <div class="d-flex align-items-center justify-content-center gap-2 bg-white py-2 mb-2 border rounded box-shadow">
+            <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="#000000" class="icon-primary"><path d="M164.62-240q-26.66 0-45.64-18.98T100-304.62v-350.76q0-26.66 18.98-45.64T164.62-720h350.76q26.66 0 45.64 18.98T580-655.38v350.76q0 26.66-18.98 45.64T515.38-240H164.62Zm528.07-280q-14.31 0-23.5-9.19t-9.19-23.5v-134.62q0-14.31 9.19-23.5t23.5-9.19h134.62q14.31 0 23.5 9.19t9.19 23.5v134.62q0 14.31-9.19 23.5t-23.5 9.19H692.69Zm7.31-40h120v-120H700v120ZM164.62-280h350.76q10.77 0 17.7-6.92 6.92-6.93 6.92-17.7v-350.76q0-10.77-6.92-17.7-6.93-6.92-17.7-6.92H164.62q-10.77 0-17.7 6.92-6.92 6.93-6.92 17.7v350.76q0 10.77 6.92 17.7 6.93 6.92 17.7 6.92Zm23.07-83.85h304.62l-97.31-130-75 100-55-73-77.31 103Zm505 123.85q-14.31 0-23.5-9.19t-9.19-23.5v-134.62q0-14.31 9.19-23.5t23.5-9.19h134.62q14.31 0 23.5 9.19t9.19 23.5v134.62q0 14.31-9.19 23.5t-23.5 9.19H692.69Zm7.31-40h120v-120H700v120Zm-560 0v-400 400Zm560-280v-120 120Zm0 280v-120 120Z"/></svg>
+            <h5 class="fw-light text-primary m-0">Галерия &middot; <small><b>{{ post_images.count }}</b> снимки</small></h5>
+        </div>
+        <div class="d-flex justify-content-center">
+            <div v-if="imagesLoading" class="spinner-border text-secondary mt-1" role="status"></div>
+        </div>
+        <div class="gallery container p-0 images-container opacity-0">
+            {% for post_image in post_images %}
+            <a class="post gallery-item" href="{{ post_image.image.url }}" data-pswp-width="{{ post_image.image.width }}" data-pswp-height="{{ post_image.image.height }}">
+                <img class="rounded border" src="{{ post_image.image.url }}" alt="photo-image-{{ post_image.pk }}">
+            </a>
+            {% endfor %}
+        </div>
     </div>
     {% endif %}
 
@@ -157,6 +171,7 @@
             comments: [],
             commentOrder: '',
             loading: false,
+            imagesLoading: true,
             loadingCreateComment: false,
             nextCommentPage: '{% url 'get_post_comments' post.pk %}?page=1&order=',
         },
@@ -346,6 +361,7 @@
                 pswpModule: PhotoSwipe,
             });
             lightbox.init();
+            {% include 'includes/js/responsive-gallery.js' %}
 
             {% if comment_link %}
             this.linkComment();
@@ -356,8 +372,9 @@
             {% endif %}
 
             setTimeout(() => {
-                document.querySelector('.card-images-container').classList.add('opacity-100');
-            }, 130);
+                this.imagesLoading = false;
+                document.querySelector('.responsive-gallery-main .images-container').classList.add('opacity-100');
+            }, 200);
         }
     })
 </script>
@@ -366,6 +383,7 @@
     {% include 'includes/css/message.css' %}
     {% include 'includes/css/image-cards.css' %}
     {% include 'includes/css/dropdown-active.css' %}
+    {% include 'includes/css/responsive-gallery.css' %}
 
     .sticky-header {
         position: sticky;
@@ -373,8 +391,8 @@
         z-index: 2
     }
 
-    .card-images-container {
-        transition: opacity 0.4s;
+    .responsive-gallery-main .images-container {
+        transition: opacity 0.8s;
     }
 
     .details-comments-container {

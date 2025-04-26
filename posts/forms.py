@@ -1,16 +1,8 @@
-import bleach
-from bleach.css_sanitizer import CSSSanitizer
-import html
+from Tekst.utils import sanitize_and_escape
 from django.core.exceptions import ValidationError
 from django import forms
 from .models import Post
 from spaces.models import Space, Tag
-
-ALLOWED_TAGS = bleach.sanitizer.ALLOWED_TAGS = ['p', 'h1', 'h2', 'h3', 'ul', 'ol', 'li', 'b', 'i', 'u', 's', 'strong',
-                                                'em', 'br', 'span']
-ALLOWED_ATTRIBUTES = {'*': ['class', 'style'], }
-ALLOWED_STYLES = ['color']
-css_sanitizer = CSSSanitizer(allowed_css_properties=ALLOWED_STYLES)
 
 
 class CreatePostForm(forms.ModelForm):
@@ -55,14 +47,7 @@ class CreatePostForm(forms.ModelForm):
 
     def clean_content(self):
         content = self.cleaned_data.get('content')
-        unescaped_content = html.unescape(content)
-        sanitized_content = bleach.clean(unescaped_content, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRIBUTES,
-                                         strip=True, css_sanitizer=css_sanitizer)
-
-        if sanitized_content != unescaped_content:
-            raise ValidationError('В полето има невалиден HTML (най-вероятно link)')
-
-        return content
+        return sanitize_and_escape(content)
 
     def save(self, commit=True):
         instance = super(CreatePostForm, self).save(commit=False)
@@ -74,11 +59,52 @@ class CreatePostForm(forms.ModelForm):
         if tags:
             try:
                 list_tags = tags.split(",")
-                for tag_id in list_tags:
-                    tag = Tag.objects.get(id=tag_id)
-                    tag.post.add(instance)
+                tags_to_add = Tag.objects.filter(id__in=list_tags)
+                instance.tag_set.add(*tags_to_add)
             except Exception as e:
                 raise ValidationError(f'Невалидни тагове: {e}')
+
+        if commit:
+            instance.save()
+        return instance
+
+
+class EditPostForm(CreatePostForm):
+    tags_to_remove = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(
+            attrs={'v-model': 'tagsToRemove'}
+        ))
+
+    tags_to_add = forms.CharField(
+        required=False,
+        widget=forms.HiddenInput(
+            attrs={'v-model': 'tagsToAdd'}
+        ))
+
+    class Meta(CreatePostForm.Meta):
+        fields = ['name', 'content']
+
+    def save(self, commit=True):
+        instance = super(EditPostForm, self).save(commit=False)
+
+        tags_to_remove = self.cleaned_data.get('tags_to_remove', '')
+        if tags_to_remove:
+            try:
+                tags_to_remove_list = tags_to_remove.split(",")
+                tags_to_remove_objects = Tag.objects.filter(id__in=tags_to_remove_list)
+                instance.tag_set.remove(*tags_to_remove_objects)
+            except Exception as e:
+                raise ValidationError(f'Невалидни тагове за премахване: {e}')
+
+        tags_to_add = self.cleaned_data.get('tags_to_add', '')
+        if tags_to_add:
+            try:
+                tags_to_add_list = tags_to_add.split(",")
+                tags_to_add_objects = Tag.objects.filter(id__in=tags_to_add_list)
+                instance.tag_set.add(*tags_to_add_objects)
+            except Exception as e:
+                raise ValidationError(f'Невалидни тагове за добавяне: {e}')
 
         if commit:
             instance.save()

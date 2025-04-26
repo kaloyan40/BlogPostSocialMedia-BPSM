@@ -2,7 +2,7 @@ const toolbarOptions = [
     [{ 'header': [1, 2, 3, false] }],
     ['bold', 'italic', 'underline', 'strike'],
     [{ 'align': [] }],
-    [{ 'color': [] }],
+    [{ 'color': [] }, { 'background': [] }],
     ['clean'],
 ];
 
@@ -16,7 +16,7 @@ const quill = new Quill('#editor', {
 if (place === 'space') {
     quill.root.dataset.placeholder = 'Въведи описание';
 } else if (place === 'post') {
-    quill.root.dataset.placeholder = 'Основен текст*';
+    quill.root.dataset.placeholder = 'Основен текст (задължително поле)';
 }
 
 quill.on('text-change', () => {

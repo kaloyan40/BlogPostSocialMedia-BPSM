@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Вход{% endblock %}
 
 {% block main %}
     <form method="POST" class="form-group card p-4">
@@ -23,7 +23,7 @@
         <div class="d-flex align-items-center gap-1">
             <button type="submit" class="btn btn-primary">Влез</button>
             <a href="{% url 'sign-up' %}" class="btn btn-secondary border">Регистрация</a>
-            <a href="{% url 'password_reset' %}" class="btn btn-secondary border">Забравена парола?</a>
+            <a href="{% url 'password_reset' %}" class="btn btn-secondary border no-wrap">Забравена парола?</a>
         </div>
     </form>
 {% endblock %}

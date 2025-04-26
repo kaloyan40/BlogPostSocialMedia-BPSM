@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Create Post{% endblock %}
+{% block title %}Създай публикация{% endblock %}
 
 {% block head %}
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.3/dist/purify.min.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -15,10 +16,6 @@
         <h1 class="text-center fw-light mb-3">Създай публикация{% if 'space_id' in request.GET %} в(ъв):{% endif %}</h1>
 
         {% include 'includes/errors.html' %}
-        <div v-if="showInvalidMessage" class="alert alert-danger d-flex align-items-center justify-content-center gap-1" role="alert">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M74.62-140 480-840l405.38 700H74.62ZM178-200h604L480-720 178-200Zm302-47.69q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02T480-312.31q-13.73 0-23.02 9.29T447.69-280q0 13.73 9.29 23.02t23.02 9.29Zm-30-104.62h60v-200h-60v200ZM480-460Z"/></svg>
-            <p><strong>Основният текст</strong> не е въведен. Попълни полето, за да продължиш.</p>
-        </div>
 
         <div v-if="loading" class="spinner-border" role="status"></div>
 
@@ -81,7 +78,7 @@
 
             <div class="space-tags-select py-3 row">
                 <div class="col">
-                    <div v-for="tag in space.tags" :key="tag.id" @click="toggleTag(tag)" :class="['badge', 'me-2', 'bg-secondary', { 'half-opacity': selectedTags.includes(tag) }]">
+                    <div v-for="tag in space.tags" :key="tag.id" @click="toggleTag(tag)" :class="['badge', 'me-2', 'bg-secondary', 'border', { 'half-opacity': selectedTags.includes(tag) }]">
                         <span class="d-flex gap-1 align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000">
                                 <path v-if="selectedTags.includes(tag)" d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/>
@@ -111,7 +108,7 @@
                         </ul>
                     </div>
                     <hr class="hr" />
-                    <h6 class="m-0">[[ tags.length ]] <span v-if="tags.length === 1">избран таг</span><span v-else>избрани тага</span></h6>
+                    <h6 class="m-0 mb-1">[[ tags.length ]] <span v-if="tags.length === 1">избран таг</span><span v-else>избрани тага</span></h6>
                 </div>
                 <div class="col">
                     <div v-for="tag in selectedTags" :key="tag.id" @click="toggleTag(tag)" class="badge me-2 bg-primary">
@@ -145,12 +142,26 @@
                 <small v-else class="text-muted">Няма избрани снимки</small>
             </div>
         </div>
+
+        <div v-if="showInvalidMessage && !nameValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+            <p>Името има <b>[[ name.length ]]</b> символа, а не трябва да превишава <b>100</b>.</p>
+        </div>
         <div class="form-floating mb-3">
             {{ form.name }}
             <label for="name">Въведи име</label>
         </div>
+
+        <div v-if="showInvalidMessage && !contentValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+            <p><strong>Основният текст</strong> не е въведен. Попълни полето, за да продължиш.</p>
+        </div>
         <div class="form-floating mb-3 form-content">
             {{ form.content }}
+            <div v-if="showInvalidMessage && !quillValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                <p v-if="!quillValid">Има невалиден текст. Може да има следните <b>НЕВАЛИДНИ</b> елемента - <b>линк</b>, <b>заглавие от тип 4 и нагоре</b>, <b>снимка</b> и други.</p>
+            </div>
             <div id="editor" class="form-control"></div>
         </div>
 
@@ -192,13 +203,17 @@
             searchInput: null,
 
             showInvalidMessage: false,
+            quillValid: true,
 
             name: '',
-            content: ''
+            nameValid: true,
+            
+            content: '',
+            contentValid: false,
         },
         methods: {
             submitForm() {
-                if (this.content.length === 0) {
+                if (!this.contentValid || !this.quillValid || !this.nameValid) {
                     this.showInvalidMessage = true;
                     return;
                 }
@@ -285,6 +300,14 @@
                         this.tagsLoading = false;
                     }
                 }, 250);
+            },
+            content(newVal) {
+                const cleanText = newVal.replace(/(<([^>]+)>)/gi, "");
+                this.contentValid = cleanText.length > 0;
+                {% include 'includes/js/quill-sanitization.js' %}
+            },
+            name(newVal) {
+                this.nameValid = newVal.length <= 100;
             }
         },
         mounted() {

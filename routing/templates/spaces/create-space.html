@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Create Space{% endblock %}
+{% block title %}Създай тема{% endblock %}
 
 {% block head %}
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.3/dist/purify.min.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -17,7 +18,7 @@
         {% include 'includes/errors.html' %}
         <div v-if="showInvalidMessage" class="alert alert-danger d-flex align-items-center justify-content-center gap-1" role="alert">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M74.62-140 480-840l405.38 700H74.62ZM178-200h604L480-720 178-200Zm302-47.69q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02T480-312.31q-13.73 0-23.02 9.29T447.69-280q0 13.73 9.29 23.02t23.02 9.29Zm-30-104.62h60v-200h-60v200ZM480-460Z"/></svg>
-            <p><strong>Името</strong> трябва да е <strong>поне 2 символа</strong>, <strong>описанието</strong> трябва да е <strong>поне 15 символа</strong> и трябва да има <strong>поне 3 тага</strong>.</p>
+            <p class="text-center"><strong>Името</strong> трябва да е <strong>поне 2 символа</strong> и да не превишава <strong>30</strong> (сега е <b>[[ nameInput.length ]]</b>), <strong>описанието</strong> трябва да е <strong>поне 15 символа</strong> и трябва да има <strong>поне 3 тага</strong>.</p>
         </div>
 
         <div class="form-floating mb-3">
@@ -26,9 +27,13 @@
         </div>
         <div class="form-floating mb-3">
             {{ form.description }}
-            <div v-if="showInvalidMessage && !descriptionInputValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1" role="alert">
+            <div v-if="showInvalidMessage && !descriptionInputValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
                 <p>Описанието е <b>[[ descriptionInput.replace(/(<([^>]+)>)/gi, "").length ]]</b>/15 символа.</p>
+            </div>
+            <div v-if="showInvalidMessage && !quillValid" class="alert alert-danger d-flex align-items-center justify-content-center gap-1 mb-1" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#842029"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+                <p v-if="!quillValid">Има невалидно описание. Може да има следните <b>НЕВАЛИДНИ</b> елемента - <b>линк</b>, <b>заглавие от тип 4 и нагоре</b>, <b>снимка</b> и други.</p>
             </div>
             <div id="editor" class="form-control"></div>
         </div>
@@ -45,10 +50,10 @@
             {{ form.image }}
         </div>
 
-        <p class="mt-3 d-flex align-items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
-            &nbsp;Добави поне 3 тага, за да създадеш тема!
-        </p>
+        <div class="mt-3 d-flex align-items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="M450-290h60v-230h-60v230Zm30-298.46q13.73 0 23.02-9.29t9.29-23.02q0-13.73-9.29-23.02-9.29-9.28-23.02-9.28t-23.02 9.28q-9.29 9.29-9.29 23.02t9.29 23.02q9.29 9.29 23.02 9.29Zm.07 488.46q-78.84 0-148.21-29.92t-120.68-81.21q-51.31-51.29-81.25-120.63Q100-401.1 100-479.93q0-78.84 29.92-148.21t81.21-120.68q51.29-51.31 120.63-81.25Q401.1-860 479.93-860q78.84 0 148.21 29.92t120.68 81.21q51.31 51.29 81.25 120.63Q860-558.9 860-480.07q0 78.84-29.92 148.21t-81.21 120.68q-51.29 51.31-120.63 81.25Q558.9-100 480.07-100Zm-.07-60q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>
+            <small>Добави <b>поне 3 тага</b>, за да създадеш тема!</small>
+        </div>
 
         <div class="form-floating mb-3">
             {{ form.tags }}
@@ -79,6 +84,7 @@
         data: {
             descriptionInput: '',
             descriptionInputValid: false,
+            quillValid: true,
 
             nameInput: '',
             nameInputValid: false,
@@ -92,7 +98,7 @@
         },
         methods: {
             submitForm() {
-                if (!this.descriptionInputValid || !this.nameInputValid || !this.tagsValid) {
+                if (!this.descriptionInputValid || !this.nameInputValid || !this.tagsValid || !this.quillValid) {
                     this.showInvalidMessage = true;
                     return;
                 }
@@ -101,7 +107,7 @@
             },
             addTag() {
                 if (this.newTag.trim() !== '') {
-                    const tagsToAdd = this.newTag.split(",").map(tag => tag.trim()).filter(tag => tag !== '');
+                    const tagsToAdd = this.newTag.split(",").map(tag => tag.trim()).filter(tag => tag !== '' && tag.length <= 30);
                     this.tags.push(...tagsToAdd);
 
                     this.newTag = '';
@@ -140,11 +146,12 @@
         },
         watch: {
             nameInput(newVal) {
-                this.nameInputValid = newVal.length > 1;
+                this.nameInputValid = newVal.length > 1 && newVal.length <= 30;
             },
             descriptionInput(newVal) {
                 const cleanText = newVal.replace(/(<([^>]+)>)/gi, "");
                 this.descriptionInputValid = cleanText.length >= 15;
+                {% include 'includes/js/quill-sanitization.js' %}
             },
             tags(newVal) {
                 this.tagsValid = newVal.length >= 3;
@@ -161,7 +168,6 @@
 
     .tags-container {
         margin: 8px 0 16px 0;
-        width: 25em;
     }
 
     .badge {

@@ -15,6 +15,14 @@ class Home(TemplateView):
     template_name = 'index.html'
 
 
+class PrivacyPolicy(TemplateView):
+    template_name = 'privacy-policy.html'
+
+
+class TermsAndConditions(TemplateView):
+    template_name = 'terms-and-conditions.html'
+
+
 def search(request):
     q = request.GET.get('q')
 
@@ -58,7 +66,8 @@ class UserProfile(LoginRequiredMixin, TemplateView):
 
         if profile.visibility == 'M' and profile.user != self.request.user:
             message = 'Профилът е скрит (само собственикът може да го види).'
-        elif profile.visibility == 'F' and (not UserFollows.objects.filter(follower=self.request.user, following=profile.user).exists()) and profile.user != self.request.user:
+        elif profile.visibility == 'F' and (not UserFollows.objects.filter(follower=self.request.user,
+                                                                           following=profile.user).exists()) and profile.user != self.request.user:
             message = 'Само последователите и собственика могат да видят профила.'
 
         if message:

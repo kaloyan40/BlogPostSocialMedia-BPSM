@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}List spaces{% endblock %}
+{% block title %}Всички теми{% endblock %}
 
 {% block main %}
     <div id="app">
@@ -56,18 +56,18 @@
                         <small class="text-muted">[[ space.followers_count ]] последователя</small>
                     </div>
                     <div class="my-3 text-muted">
-                        <span v-for="tag in space.tags" class="badge me-1 bg-primary">
+                        <span v-for="tag in space.tags" class="badge me-1 border">
                             <div class="d-flex align-items-center gap-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#FFFFFF"><path d="M840-480 666-234q-11 16-28.5 25t-37.5 9H200q-33 0-56.5-23.5T120-280v-400q0-33 23.5-56.5T200-760h400q20 0 37.5 9t28.5 25l174 246Zm-98 0L600-680H200v400h400l142-200Zm-542 0v200-400 200Z" /></svg>
-                                <span>[[ tag.name ]]</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M840-480 666-234q-11 16-28.5 25t-37.5 9H200q-33 0-56.5-23.5T120-280v-400q0-33 23.5-56.5T200-760h400q20 0 37.5 9t28.5 25l174 246Zm-98 0L600-680H200v400h400l142-200Zm-542 0v200-400 200Z" /></svg>
+                                <span class="text-black">[[ tag.name ]]</span>
                             </div>
                         </span>
                     </div>
                     <div class="d-flex gap-3 justify-content-between align-items-center">
-                        <div class="text-muted d-flex gap-1 align-items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#5f6368"><path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z"/></svg>
+                        <div class="d-flex gap-1 align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#000000"><path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z"/></svg>
                             <span>[[ space.user.username ]]</span>
-                            <span>&nbsp;&nbsp;[[ convertIso8601Format(space.created_at) ]]</span>
+                            <small class="text-muted">&nbsp;&nbsp;[[ convertIso8601Format(space.created_at) ]]</small>
                         </div>
                         <a :href="generateCreatePostURL(space.id)" class="btn btn-primary btn-sm">Публикувай тук</a>
                     </div>
@@ -100,16 +100,16 @@
                     </div>
                     <div class="card-body d-flex justify-content-between">
                         <small class="text-muted">{{ space.followers_count }} последователя</small>
-                        {% if request.user.is_authenticated %}<button type="button" class="btn btn-sm btn-outline-primary" data-is-followed="{% if space.pk in followed_spaces %}true{% else %}false{% endif %}" @click="followUnfollowSpace({{ space.pk }}, $event)">{% if space.pk in followed_spaces %}отследвай{% else %}следвай{% endif %}</button>{% endif %}
+                        {% if request.user.is_authenticated %}<button type="button" class="btn btn-sm btn-outline-primary p-1" data-is-followed="{% if space.pk in followed_spaces %}true{% else %}false{% endif %}" @click="followUnfollowSpace({{ space.pk }}, $event)"><small>{% if space.pk in followed_spaces %}отследвай{% else %}следвай{% endif %}</small></button>{% endif %}
                     </div>
                     <div class="card-body">
                         <a :href="generateCreatePostURL({{ space.pk }})" class="btn btn-primary btn-sm">Публикувай тук</a>
                     </div>
                     <div class="card-footer bg-secondary">
-                        <small class="d-flex gap-1 align-items-center">
+                        <a href="{% url 'user_profile' space.user.username|lower %}" class="d-flex gap-1 align-items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" height="23px" viewBox="0 -960 960 960" width="23px" class="icon-primary" fill="currentColor"><path d="M480-504.62q-49.5 0-84.75-35.25T360-624.62q0-49.5 35.25-84.75T480-744.62q49.5 0 84.75 35.25T600-624.62q0 49.5-35.25 84.75T480-504.62ZM200-215.38v-65.85q0-24.77 14.42-46.35 14.43-21.57 38.81-33.5 56.62-27.15 113.31-40.73 56.69-13.57 113.46-13.57 56.77 0 113.46 13.57 56.69 13.58 113.31 40.73 24.38 11.93 38.81 33.5Q760-306 760-281.23v65.85H200Zm40-40h480v-25.85q0-13.31-8.58-25-8.57-11.69-23.73-19.77-49.38-23.92-101.83-36.65-52.45-12.73-105.86-12.73t-105.86 12.73Q321.69-349.92 272.31-326q-15.16 8.08-23.73 19.77-8.58 11.69-8.58 25v25.85Zm240-289.24q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 369.24Z"/></svg>
-                            <a href="{% url 'user_profile' space.user.username %}">{{ space.user.username }}</a>
-                        </small>
+                            <small>{{ space.user.username }}</small>
+                        </a>
                     </div>
                     <div class="card-footer bg-secondary">
                         <small>Създадено на {{ space.created_at }}</small>
@@ -122,11 +122,11 @@
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
                         <li class="page-item">
-                            <a class="page-link" href="{% url 'list_spaces' %}?page={{ page_obj.previous_page_number }}&order={{ request.GET.order }}">Previous</a>
+                            <a class="page-link" href="{% url 'list_spaces' %}?page={{ page_obj.previous_page_number }}&order={{ request.GET.order }}">Предишна</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled">
-                            <span class="page-link">Previous</span>
+                            <span class="page-link">Предишна</span>
                         </li>
                     {% endif %}
                     <li class="page-item active">
@@ -136,11 +136,11 @@
                     </li>
                     {% if page_obj.has_next %}
                         <li class="page-item">
-                            <a class="page-link" href="{% url 'list_spaces' %}?page={{ page_obj.next_page_number }}&order={{ request.GET.order }}">Next</a>
+                            <a class="page-link" href="{% url 'list_spaces' %}?page={{ page_obj.next_page_number }}&order={{ request.GET.order }}">Следваща</a>
                         </li>
                     {% else %}
                         <li class="page-item disabled">
-                            <span class="page-link">Next</span>
+                            <span class="page-link">Следваща</span>
                         </li>
                     {% endif %}
                 </ul>

@@ -13,13 +13,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Открийте увлекателни теми и дискусии за родителство, готварство, разнообразни истории и още! Присъединете се към общност от ентусиасти и споделяйте своите идеи, съвети и истории.">
+    <meta name="keywords" content="драсни, drasny, post, space, tag, публикация, тема, теми, тагове, таг, истории, създай">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
 
     <title>{% block title %}{% endblock %}</title>
 
     {% block head %}{% endblock %}
 
-    {# VueJS integration #}
+    {# Google Adsense #}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5699563227200174" crossorigin="anonymous"></script>
+
+    {# VueJS Integration #}
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
     {# include Axios #}
@@ -41,7 +48,7 @@
         <nav class="navbar navbar-light bg-secondary main-nav">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'images/logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="logo-img">
-                Istorya.bg
+                Drasny.com
             </a>
 
             <div class="d-flex flex-grow-1 align-items-center">
@@ -55,13 +62,13 @@
                         v-model="searchInput"
                         @keyup.enter="search"
                     >
-                    <button class="btn btn-primary" style="border-top-left-radius: 0; border-bottom-left-radius: 0;" @click="search">Търси</button>
+                    <button class="btn btn-primary" style="border-bottom-left-radius: 0;" @click="search">Търси</button>
                 </div>
                 {% if request.user.is_authenticated %}
                 <div class="authenticated-container">
                     <div class="d-flex gap-1">
                     <div class="dropdown">
-                        <button class="btn bg-white dropdown-toggle d-flex gap-1 align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn bg-white dropdown-toggle d-flex gap-1 align-items-center border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M480-492.31q-57.75 0-98.87-41.12Q340-574.56 340-632.31q0-57.75 41.13-98.87 41.12-41.13 98.87-41.13 57.75 0 98.87 41.13Q620-690.06 620-632.31q0 57.75-41.13 98.88-41.12 41.12-98.87 41.12ZM180-187.69v-88.93q0-29.38 15.96-54.42 15.96-25.04 42.66-38.5 59.3-29.07 119.65-43.61 60.35-14.54 121.73-14.54t121.73 14.54q60.35 14.54 119.65 43.61 26.7 13.46 42.66 38.5Q780-306 780-276.62v88.93H180Zm60-60h480v-28.93q0-12.15-7.04-22.5-7.04-10.34-19.11-16.88-51.7-25.46-105.42-38.58Q534.7-367.69 480-367.69q-54.7 0-108.43 13.11-53.72 13.12-105.42 38.58-12.07 6.54-19.11 16.88-7.04 10.35-7.04 22.5v28.93Zm240-304.62q33 0 56.5-23.5t23.5-56.5q0-33-23.5-56.5t-56.5-23.5q-33 0-56.5 23.5t-23.5 56.5q0 33 23.5 56.5t56.5 23.5Zm0-80Zm0 384.62Z"/></svg>
                             <span>{{ request.user.username }}</span>
                         </button>
@@ -93,9 +100,9 @@
                             </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item d-flex gap-1 align-items-center logout-dropdown-button" href="{% url 'logout' %}">
-                                    <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z"/></svg>
-                                    Излез
+                                <a class="dropdown-item d-flex gap-1 align-items-center white-svg-dropdown-button" href="{% url 'logout' %}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960" width="17px" fill="#000000"><path d="M228.31-164q-27.01 0-45.66-18.65Q164-201.3 164-228.31v-503.38q0-27.01 18.65-45.66Q201.3-796 228.31-796h252.07v52H228.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v503.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h252.07v52H228.31Zm428.92-177.23-37.54-36.39L696.08-454H387.85v-52h308.23l-76.39-76.38 37.54-36.39L796-480 657.23-341.23Z"/></svg>
+                                    <span>Излез</span>
                                 </a>
                             </li>
                         </ul>
@@ -127,27 +134,66 @@
                 </div>
             </div>
         </nav>
-        <div class="collapse" id="navbarToggleExternalContent">
+        <div class="collapse bg-secondary" id="navbarToggleExternalContent">
             <ul class="list-group">
                 {% if request.user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'home' %}">Начало</a></li>
-                <li><a class="dropdown-item" href="{% url 'user_profile' request.user.profile.slug %}">Моят профил</a></li>
-                <li><a class="dropdown-item" href="{% url 'list_spaces' %}">Виж теми</a></li>
-                <hr>
-                <li><a class="dropdown-item" href="{% url 'create_space' %}">Създай тема</a></li>
-                <li><a class="dropdown-item" href="{% url 'create_post' %}">Създай публикация</a></li>
-                <hr>
-                <li><a class="dropdown-item" href="{% url 'logout' %}">Излез</a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'home' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M240-200h147.69v-235.38h184.62V-200H720v-360L480-741.54 240-560v360Zm-40 40v-420l280-211.54L760-580v420H532.31v-235.38H427.69V-160H200Zm280-310.77Z"/></svg>
+                    <span>Начало</span>
+                </a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'user_profile' request.user.profile.slug %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M250.85-269.62q54-35.69 109.73-53.03Q416.31-340 480-340q63.69 0 119.42 17.35 55.73 17.34 109.73 53.03 39.62-41 61.23-94.84Q792-418.31 792-480q0-129.67-91.23-220.84-91.23-91.16-221-91.16Q350-792 259-700.84 168-609.67 168-480q0 61.69 21.62 115.54 21.61 53.84 61.23 94.84ZM480.02-428q-51.56 0-87.79-36.21Q356-500.42 356-551.98q0-51.56 36.21-87.79Q428.42-676 479.98-676q51.56 0 87.79 36.21Q604-603.58 604-552.02q0 51.56-36.21 87.79Q531.58-428 480.02-428Zm.26 292q-71.59 0-134.28-26.54t-109.81-73.65q-47.11-47.12-73.65-109.77Q136-408.61 136-480.46t26.54-134.04q26.54-62.19 73.65-109.31 47.12-47.11 109.77-73.65Q408.61-824 480.46-824t134.04 26.54q62.19 26.54 109.31 73.65 47.11 47.12 73.65 109.53 26.54 62.42 26.54 134 0 71.59-26.54 134.28t-73.65 109.81q-47.12 47.11-109.53 73.65-62.42 26.54-134 26.54Zm-.28-32q54.31 0 108.85-20.35 54.53-20.34 96.53-56.96-43-29.31-95.23-46Q537.92-308 480-308q-57.92 0-111.04 15.81-53.11 15.81-94.34 46.88 42 36.62 96.53 56.96Q425.69-168 480-168Zm0-292q37.69 0 64.85-27.15Q572-514.31 572-552t-27.15-64.85Q517.69-644 480-644t-64.85 27.15Q388-589.69 388-552t27.15 64.85Q442.31-460 480-460Zm0-92Zm0 309Z"/></svg>
+                    <span>Моят профил</span>
+                </a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'list_spaces' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M480.18-345.85q55.97 0 94.97-39.18t39-95.15q0-55.97-39.18-94.97t-95.15-39q-55.97 0-94.97 39.18t-39 95.15q0 55.97 39.18 94.97t95.15 39ZM480-384q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm.11 152q-126.55 0-230.68-67.73Q145.31-367.46 91.08-480q54.23-112.54 158.24-180.27Q353.34-728 479.89-728t230.68 67.73Q814.69-592.54 868.92-480q-54.23 112.54-158.24 180.27Q606.66-232 480.11-232ZM480-480Zm0 216q112 0 207-58t146-158q-51-100-146-158t-207-58q-112 0-207 58T127-480q51 100 146 158t207 58Z"/></svg>
+                    <span>Виж теми</span>
+                </a></li>
+                <hr class="my-1">
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'create_space' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M464-308h32v-156h156v-32H496v-156h-32v156H308v32h156v156Zm16.41 172q-70.95 0-133.69-26.84-62.73-26.84-109.86-73.92t-73.99-109.72Q136-409.11 136-480.32q0-71.22 26.84-133.46 26.84-62.23 73.92-109.36t109.72-73.99Q409.11-824 480.32-824q71.22 0 133.46 26.84 62.23 26.84 109.36 73.92t73.99 109.48Q824-551.36 824-480.41q0 70.95-26.84 133.69-26.84 62.73-73.92 109.86t-109.48 73.99Q551.36-136 480.41-136Zm-.41-32q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"/></svg>
+                    <span>Създай тема</span>
+                </a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'create_post' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M464-308h32v-156h156v-32H496v-156h-32v156H308v32h156v156Zm16.41 172q-70.95 0-133.69-26.84-62.73-26.84-109.86-73.92t-73.99-109.72Q136-409.11 136-480.32q0-71.22 26.84-133.46 26.84-62.23 73.92-109.36t109.72-73.99Q409.11-824 480.32-824q71.22 0 133.46 26.84 62.23 26.84 109.36 73.92t73.99 109.48Q824-551.36 824-480.41q0 70.95-26.84 133.69-26.84 62.73-73.92 109.86t-109.48 73.99Q551.36-136 480.41-136Zm-.41-32q130 0 221-91t91-221q0-130-91-221t-221-91q-130 0-221 91t-91 221q0 130 91 221t221 91Zm0-312Z"/></svg>
+                    <span>Създай публикация</span>
+                </a></li>
+                <hr class="my-1">
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'logout' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M240.62-184q-24.32 0-40.47-16.15T184-240.62v-478.76q0-24.32 16.15-40.47T240.62-776h240.15v32H240.62q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v478.76q0 9.24 7.69 16.93 7.69 7.69 16.93 7.69h240.15v32H240.62Zm425.84-186.46-24.08-21.77L714.15-464H391.69v-32h322.46l-71.77-71.77 24.08-21.77L776-480 666.46-370.46Z"/></svg>
+                    <span>Излез</span>
+                </a></li>
+                {% else %}
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'home' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M240-200h147.69v-235.38h184.62V-200H720v-360L480-741.54 240-560v360Zm-40 40v-420l280-211.54L760-580v420H532.31v-235.38H427.69V-160H200Zm280-310.77Z"/></svg>
+                    <span>Начало</span>
+                </a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'list_spaces' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M480.18-345.85q55.97 0 94.97-39.18t39-95.15q0-55.97-39.18-94.97t-95.15-39q-55.97 0-94.97 39.18t-39 95.15q0 55.97 39.18 94.97t95.15 39ZM480-384q-40 0-68-28t-28-68q0-40 28-68t68-28q40 0 68 28t28 68q0 40-28 68t-68 28Zm.11 152q-126.55 0-230.68-67.73Q145.31-367.46 91.08-480q54.23-112.54 158.24-180.27Q353.34-728 479.89-728t230.68 67.73Q814.69-592.54 868.92-480q-54.23 112.54-158.24 180.27Q606.66-232 480.11-232ZM480-480Zm0 216q112 0 207-58t146-158q-51-100-146-158t-207-58q-112 0-207 58T127-480q51 100 146 158t207 58Z"/></svg>
+                    <span>Виж теми</span>
+                </a></li>
+                <hr class="my-1">
+                <li><a class="dropdown-item d-flex align-items-center gap-1 white-svg-dropdown-button" href="{% url 'login' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="18px" fill="#000000"><path d="M479.23-184v-32h240.15q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-478.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69H479.23v-32h240.15q24.32 0 40.47 16.15T776-719.38v478.76q0 24.32-16.15 40.47T719.38-184H479.23Zm-20.46-186.46-24.08-21.77L506.46-464H184v-32h322.46l-71.77-71.77 24.08-21.77L568.31-480 458.77-370.46Z"/></svg>
+                    <span>Влез</span>
+                </a></li>
                 {% endif %}
             </ul>
+            <hr class="my-1">
+            <div class="p-3 d-flex flex-column">
+                <small><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></small>
+                <small><a href="{% url 'terms_and_conditions' %}">Условия</a></small>
+                <small class="mt-2">&copy; Drasny.com</small>
+            </div>
         </div>
     </header>
 
     <div class="container main">
         <div class="row">
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar main-sidebar collapse bg-secondary">
+            <nav class="py-2 col-md-3 col-lg-2 d-md-block sidebar main-sidebar collapse bg-secondary border rounded">
                 <div class="sidebar-sticky pt-3">
                     <a href="{% url 'create_space' %}" class="btn btn-outline-primary border w-100 mb-4">Създай тема</a>
+                    <div class="text-center"><a href="{% url 'list_spaces' %}" class="text-decoration-none">Виж всички теми</a></div>
                     <h5 class="sidebar-heading mb-1">Проверени теми</h5>
                     <ul class="list-group list-group-flush">
                     {% for space in verified_spaces %}
@@ -176,7 +222,7 @@
 
                     {% if request.user.is_authenticated %}
                     <h5 class="sidebar-heading mb-0 mt-3">Какво следвам</h5>
-                    <h6 class="sidebar-heading">Хора</h6>
+                    <h6 class="sidebar-heading fw-light">Хора</h6>
                     {% if not followed_users %}Не следвам хора{% endif %}
                     <ul class="list-group list-group-flush">
                     {% for followed_user in followed_users %}
@@ -187,7 +233,7 @@
                     {% endfor %}
                     </ul>
 
-                    <h6 class="sidebar-heading mt-3">Теми</h6>
+                    <h6 class="sidebar-heading mt-3 fw-light">Теми</h6>
                     {% if not sb_followed_spaces %}Не следвам теми{% endif %}
                     <ul class="list-group list-group-flush">
                     {% for followed_space in sb_followed_spaces %}
@@ -200,6 +246,12 @@
                     {% endfor %}
                     </ul>
                     {% endif %}
+                </div>
+                <hr>
+                <div class="d-flex flex-column">
+                    <small><a href="{% url 'privacy_policy' %}">Политика за поверителност</a></small>
+                    <small><a href="{% url 'terms_and_conditions' %}">Условия</a></small>
+                    <div class="mt-2"><small>&copy; Drasny.com</small></div>
                 </div>
             </nav>
 

@@ -1,0 +1,28 @@
+.responsive-gallery-main .container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 100px 2vw;
+}
+
+.responsive-gallery-main .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.responsive-gallery-main .post {
+    position: relative;
+    overflow: hidden;
+}
+
+.responsive-gallery-main img {
+    width: 100%;
+}
+
+.responsive-gallery-main .post:hover .overlay {
+    opacity: 0.95;
+    cursor: pointer;
+}

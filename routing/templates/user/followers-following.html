@@ -3,9 +3,13 @@
 {% block title %}{{ user.username }} Последователи и Последвани{% endblock %}
 
 {% block main %}
-    <div class="row">
+    <div class="row bg-secondary p-3 border rounded">
+        <a href="#following-container" class="mb-3 d-flex gap-1 d-none ffs-look-followings">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor" class="icon-primary"><path d="M480-387.69 327.69-540h304.62L480-387.69Z"/></svg>
+            <span>Виж кой следва</span>
+        </a>
         <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2 text-white">
+            <div class="d-flex justify-content-center mb-2">
                 <p><b>{{ user.username }}</b> го следват <b>{{ followers_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followers_list %}
@@ -19,12 +23,12 @@
             {% endfor %}
         </div>
 
-        <div class="col-lg-1 d-flex justify-content-center align-items-center">
+        <div class="col-lg-1 d-flex justify-content-center align-items-center ffs-split-line">
             <div class="vr"></div>
         </div>
 
-        <div class="col-lg-5">
-            <div class="d-flex justify-content-center mb-2 text-white">
+        <div class="col-lg-5" id="following-container">
+            <div class="d-flex justify-content-center mb-2">
                 <p><b>{{ user.username }}</b> следва <b>{{ followings_list.count }}</b> потребителя</p>
             </div>
             {% for obj in followings_list %}

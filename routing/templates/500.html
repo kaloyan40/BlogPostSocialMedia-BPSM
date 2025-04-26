@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}500{% endblock %}
+
+{% block main %}
+    <div class="card p-4 d-flex justify-content-center align-items-center mt-5">
+        <h1 class="fw-light mb-1 display-1">500</h1>
+        <p>Сървърна грешка. <a href="{% url 'home' %}">Върни се обратно в Начало</a>.</p>
+        <img src="{% static 'images/logo.png' %}" class="w-25 mt-4" alt="logo-img">
+    </div>
+{% endblock %}
+
+{% block rest %}
+<script>
+    const header = document.querySelector('.main-header');
+    header.remove();
+
+    const sidebar = document.querySelector('.main-sidebar');
+    sidebar.remove();
+
+    const rowElement = document.querySelector('.row');
+    rowElement.classList.add('justify-content-center');
+</script>
+{% endblock %}

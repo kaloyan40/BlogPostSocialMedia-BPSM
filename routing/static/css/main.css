@@ -59,6 +59,25 @@
     border-color: var(--bs-primary);
 }
 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pulse-effect {
+    animation: pulse 1s infinite;
+}
+
 /* DROPDOWN MENU */
 .dropdown-menu li {
     position: relative;
@@ -79,7 +98,7 @@
     display: block;
 }
 
-.logout-dropdown-button:active svg {
+.white-svg-dropdown-button:active svg {
     fill: white;
 }
 
@@ -161,10 +180,4 @@ body {
     top: 5px;
     right: 5px;
     cursor: pointer;
-}
-
-#bootstrap-override .sidebar {
-    height: 100vh;
-    border: 1px solid lightgray;
-    border-radius: 0.25rem;
 }

@@ -1,11 +1,13 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DetailView
+from django.views import View
 from spaces.models import Tag
 from .models import Post, ReactionType, Comment, PostImages
-from .forms import CreatePostForm
+from .forms import CreatePostForm, EditPostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 
 
@@ -20,9 +22,8 @@ class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
 
         images = self.request.FILES.getlist('imagesInput')
-
-        for image in images:
-            PostImages.objects.create(post=self.object, image=image)
+        post_images = [PostImages(post=self.object, image=image) for image in images]
+        PostImages.objects.bulk_create(post_images)
 
         return response
 
@@ -34,7 +35,60 @@ class PostCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('home')
+        return reverse_lazy('post_details', kwargs={'slug': self.object.slug})
+
+
+class PostEditView(View):
+    form_class = EditPostForm
+    template_name = "posts/edit-post.html"
+
+    @staticmethod
+    def _handle_form_errors(request, form):
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, f"Грешка в полето {field}: {error}")
+
+    def _validate_ownership(self, post, user):
+        if post.user != user:
+            messages.error(self.request, "Нямате право да редактирате тази публикация.")
+            raise PermissionError()
+
+    def get(self, request, *args, **kwargs):
+        # Find post
+        post = get_object_or_404(Post, slug=self.kwargs['slug'])
+
+        # Validate if post belongs to the user
+        try:
+            self._validate_ownership(post, request.user)
+        except PermissionError:
+            return redirect('home')
+
+        form = self.form_class(instance=post)
+
+        context = {
+            "form": form,
+            "post": post
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, slug=self.kwargs['slug'])
+        form = self.form_class(request.POST, instance=post)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Публикацията се поднови успешно!")
+            return redirect('post_details', slug=post.slug)
+        else:
+            self._handle_form_errors(request, form)
+
+        context = {
+            "form": form,
+            "post": post
+        }
+
+        return render(request, self.template_name, context)
 
 
 class PostDetailView(DetailView):

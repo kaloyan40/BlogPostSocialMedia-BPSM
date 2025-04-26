@@ -74,12 +74,12 @@ const postsApp = new Vue({
             .then((response) => {
                 post.comments.unshift(response.data);
                 commentInput.value = "";
-                commentButton.innerHTML = "Publish";
-                messageApp.triggerNotification('Comment created');
+                commentButton.innerHTML = "Публикувай";
+                messageApp.triggerNotification('Коментар създаден');
             })
             .catch((error) => {
                 console.error(error);
-                commentButton.innerHTML = "Publish";
+                commentButton.innerHTML = "Публикувай";
             });
         },
         listComments(post) {
