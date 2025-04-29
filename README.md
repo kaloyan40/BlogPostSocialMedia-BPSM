@@ -104,6 +104,6 @@ The platform also includes features like user profiles, password management, and
 This file should be used to load the database with example users, posts, tags, and other content - perfect for development or testing.
 
 ### Images
-[Media Folder](https://www.dropbox.com/scl/fo/qt4p44vsahgwoe8e09qof/AAkncXURZF55-TXIrJAsdjE?rlkey=z3g9uohv5qnoc9d4vie3zs65l&st=zp9favt0&dl=0)
+[Media Folder](https://www.dropbox.com/scl/fi/vtu4jp5f7ckojpk28a3ep/media.rar?rlkey=rwqjy2ce7zlap8ceqhcr2zkud&st=149bg2o8&dl=0)
 
 Make sure to add this folder to the `routing` directory for proper media file handling.
