@@ -24,3 +24,10 @@ class Notification(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     extra_data = models.JSONField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} ({self.notification_type})"
+
+    class Meta:
+        verbose_name = "Нотификация"
+        verbose_name_plural = "Нотификации"

@@ -58,6 +58,10 @@ class Post(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Публикация"
+        verbose_name_plural = "Публикации"
+
 
 class PostImages(models.Model):
     post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
@@ -66,18 +70,24 @@ class PostImages(models.Model):
     def __str__(self):
         return f"Image for {self.post.name}"
 
+    class Meta:
+        verbose_name = "Изображение на публикация"
+        verbose_name_plural = "Изображения на публикации"
+
 
 class SavedPosts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='saved_posts')
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.user.username} saved post - {self.post.name}'
+
     class Meta:
+        verbose_name = "Записана публикация"
+        verbose_name_plural = "Записани публикации"
         constraints = [
             models.UniqueConstraint(fields=['user', 'post'], name='unique_user_post')
         ]
-
-    def __str__(self):
-        return f'{self.user.username} saved post - {self.post.name}'
 
 
 class Comment(models.Model):
@@ -99,6 +109,10 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment by {self.user.username} on {self.post.name} ({self.content})'
 
+    class Meta:
+        verbose_name = "Коментар"
+        verbose_name_plural = "Коментари"
+
 
 class CommentLikes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_likes')
@@ -107,6 +121,10 @@ class CommentLikes(models.Model):
     def __str__(self):
         return f'{self.user.username} likes comment {self.comment.id}'
 
+    class Meta:
+        verbose_name = "Харесване на коментар"
+        verbose_name_plural = "Харесвания на коментари"
+
 
 class ReactionType(models.Model):
     name = models.CharField(max_length=50)
@@ -114,6 +132,10 @@ class ReactionType(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Тип реакция"
+        verbose_name_plural = "Типове реакции"
 
 
 class Reaction(models.Model):

@@ -41,12 +41,21 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user}'s Profile"
 
+    class Meta:
+        verbose_name = "Профил"
+        verbose_name_plural = "Профила"
+
 
 class UserFollows(models.Model):
     following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='followers')
     follower = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following')
 
+    def __str__(self):
+        return f"{self.follower.username} follows {self.following.username}"
+
     class Meta:
+        verbose_name = "Последване"
+        verbose_name_plural = "Последвания"
         constraints = [
             models.UniqueConstraint(fields=['following', 'follower'], name='unique_following_follower')
         ]
@@ -72,10 +81,10 @@ class UserReport(models.Model):
     reported_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        ordering = ['-reported_on']
-        verbose_name = "User Report"
-        verbose_name_plural = "User Reports"
-
     def __str__(self):
         return f"{self.report_type} report by {self.reporter} on {self.reported_user} - Status: {self.status}"
+
+    class Meta:
+        ordering = ['-reported_on']
+        verbose_name = "Доклад за потребител"
+        verbose_name_plural = "Доклади за потребители"

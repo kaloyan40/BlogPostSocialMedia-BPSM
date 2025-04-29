@@ -36,6 +36,10 @@ class Space(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Тема"
+        verbose_name_plural = "Теми"
+
 
 class Tag(models.Model):
     name = models.CharField(max_length=30)
@@ -47,8 +51,19 @@ class Tag(models.Model):
     def __str__(self):
         return f"{self.name} (space: {self.space.name})"
 
+    class Meta:
+        verbose_name = "Етикет"
+        verbose_name_plural = "Етикети"
+
 
 class UserSpaceFollow(models.Model):
     user = models.ForeignKey(User, related_name='followed_spaces', on_delete=models.CASCADE)
     space = models.ForeignKey(Space, related_name='followers', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} follows {self.space.name}"
+
+    class Meta:
+        verbose_name = "Последване на тема"
+        verbose_name_plural = "Последвания на теми"

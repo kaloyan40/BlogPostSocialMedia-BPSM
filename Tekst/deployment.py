@@ -4,11 +4,9 @@ from .settings import BASE_DIR
 
 ALLOWED_HOSTS = [
     os.getenv('WEBSITE_HOSTNAME'),
-    'drasny.com'
 ]
 CSRF_TRUSTED_ORIGINS = [
     f"https://{os.getenv('WEBSITE_HOSTNAME')}",
-    'https://drasny.com'
 ]
 DEBUG = False
 SECRET_KEY = os.getenv('WEBSITE_SECRET_KEY')
