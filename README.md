@@ -91,7 +91,7 @@ The platform also includes features like user profiles, password management, and
 ![11profile2](https://github.com/user-attachments/assets/34c3f7d2-70c0-46ca-8894-dd18a167bec0)
 ![12profile3](https://github.com/user-attachments/assets/8ce4161c-41e3-4cd8-91bb-41849b042ba1)
 ![13profile4](https://github.com/user-attachments/assets/5354fa4b-1477-40b7-85f1-b20e02895052)
-![14profile5](https://github.com/user-attachments/assets/29707cd5-1572-4ba8-9401-22c626aa96e3)
+![14profile5](https://github.com/user-attachments/assets/2e402f53-9b13-4816-9c11-9b96adcf9720)
 ![15notifications](https://github.com/user-attachments/assets/3a30248b-ece5-4973-8e37-5edbe74f9f0f)
 ![16](https://github.com/user-attachments/assets/a6c413a8-bb60-4fd8-9ca4-f92142ee3e38)
 
