@@ -99,17 +99,14 @@ The platform also includes features like user profiles, password management, and
 
 # Populate the project with Dummy Data
 ### Database
-[BPSM_DB.backup](https://www.dropbox.com/scl/fi/dl0dvgw4plglljj0j2mhh/BPSM_DB.backup?rlkey=dh7ioaoxqoi3lwu063aaihd40&st=n4y5xrhf&dl=0)
-
-Delete the current **DB** and create a new one with the same name. Now **restore** the newly created **DB** with the file.
-
+Download the [BPSM_DB.backup](https://www.dropbox.com/scl/fi/dl0dvgw4plglljj0j2mhh/BPSM_DB.backup?rlkey=dh7ioaoxqoi3lwu063aaihd40&st=n4y5xrhf&dl=0) file, delete the current database, create a new one with the same name, and restore it using the downloaded backup.
+<br />
+<br />
 ### Images
-[Media Folder](https://www.dropbox.com/scl/fi/vtu4jp5f7ckojpk28a3ep/media.rar?rlkey=rwqjy2ce7zlap8ceqhcr2zkud&st=ay7ndjhl&dl=0)
+Download [this folder](https://www.dropbox.com/scl/fi/vtu4jp5f7ckojpk28a3ep/media.rar?rlkey=rwqjy2ce7zlap8ceqhcr2zkud&st=ay7ndjhl&dl=0) and add it to the `routing` directory for proper media file handling.
+<br />
+<br />
+### Admin Panel
+[Open Admin Panel](http://127.0.0.1:8000/9d-uH6R24QW7-admin/)
 
-Make sure to add this folder to the `routing` directory for proper media file handling.
-
-### Admin Account
-**Username:** kaloyan<br />
-**Password:** k
-
-[Admin Panel](http://127.0.0.1:8000/9d-uH6R24QW7-admin/)
+**Note:** Make sure to create a superuser (`python manage.py createsuperuser`) to access the admin panel.
